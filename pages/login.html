@@ -1,19 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="center">
-    <h1>{% block title %} Login {% endblock %}</h1>
-    <div class="card border-primary mb-3" style="max-width: 20rem;">
-        <div class="card-header">Header</div>
-        <div class="card-body">
-            <h4 class="card-title">Primary card title</h4>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
-            <div class="d-grid gap-2">
-                <button class="btn btn-success" type="button">Login</button>
-                <button class="btn btn-info" type="button">Registrar</button>
+    <form>
+        <fieldset>
+            <div class="d-flex align-items-center justify-content-center">
+            <div class="card border-primary mb-3" style="max-width: 30rem; width: 25rem;">
+                <div class="card-header">{% block title %} Seja Bem-Vindo! {% endblock %}</div>
+                <div class="card-body">
+                    <div>
+                        <h4 for="exampleInputEmail1" class="form-label mt-4">Login</h4>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Digite seu e-mail">
+                    </div>
+                    <div>
+                        <h4 for="exampleInputPassword1" class="form-label mt-4">Senha</h4>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Digite sua senha" autocomplete="off">
+                    </div>
+                    <div class="d-grid gap-2 form-label mt-4">
+                        <button class="btn btn-primary" type="submit">Login</button>
+                        <button onclick="window.location.href='/register';" class="btn btn-outline-secondary" type="button">Registrar</button></a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+        </fieldset>
+    </form>
 
 {% endblock %}

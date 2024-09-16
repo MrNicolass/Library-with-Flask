@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form action="/users" method="post">
+    <fieldset>
+        <div class="d-flex align-items-center justify-content-center">
+            <div class="card border-primary mb-3" style="max-width: 30rem; width: 25rem;">
+                <div class="card-header"> Hora de se registrar!</div>
+                <div class="card-body">
+                    <div>
+                        <!-- E-mail -->
+                        <h4 class="form-label mt-4">Login</h4>
+                        <input name="login" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Digite seu e-mail">
+                        <!-- Senha -->
+                        <h4 class="form-label mt-4">Senha</h4>
+                        <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Digite sua senha" autocomplete="off">
+                        <!-- Nome -->
+                        <h4 class="form-label mt-4">Nome</h4>
+                        <input name="firstName" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="firstNameHelp" placeholder="Digite seu nome">
+                        <!-- Sobrenome -->
+                        <h4 class="form-label mt-4">Sobrenome</h4>
+                        <input name="lastName" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="lastNameHelp" placeholder="Digite seu sobrenome">
+                    </div>
+                    <div class="d-grid gap-2 form-label mt-4">
+                        <button class="btn btn-primary" type="submit">Registrar</button>
+                        <button onclick="window.location.href='/users/login';" class="btn btn-outline-secondary"
+                            type="button">Voltar</button>
+                    </div>
+                </div>
+            </div>
+    </fieldset>
+</form>
+
+{% endblock %}
