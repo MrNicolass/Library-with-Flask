@@ -31,21 +31,20 @@ def create_user():
         db = get_db()
         cursor = db.cursor()
 
-        login = request.form['email']
+        login = request.form['login']
         password = request.form['password']
         firstName = request.form['firstName']
         lastName = request.form['lastName']
 
-        if email_validation(login):
+        if not email_validation(login):
             return jsonify({"error": "Não é um e-mail Válido!"}), 400
-        else:
-            return jsonify({"message": "Usuário criado com sucesso!"}), 201
 
-        # if not login or not password or not firstName or not lastName:
-        #     return jsonify({"error": "Preencha todos os campos"}), 400
-        # else:
-        #     cursor.execute(f"INSERT INTO users (login, password, firstName, lastName) VALUES ({login}, {password}, {firstName}, {lastName})")
-        #     db.commit()
+        if not login or not password or not firstName or not lastName:
+            return jsonify({"error": "Preencha todos os campos"}), 400
+        else:
+            cursor.execute(f"INSERT INTO users (login, password, firstName, lastName) VALUES ('{login}', '{password}', '{firstName}', '{lastName}')")
+            db.commit()
+            return jsonify({"message": "Usuário criado com sucesso!"}), 201
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
