@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Usuários {% endblock %}</h1>
+ 
+    <table class="table table-hover">
+        <thead>
+            <tr class="table-dark">
+                <th scope="row">Nome</th>
+                <td>Senha</td>
+                <td>Situação:</td>
+                <td>Data de Criação</td>
+                <td>Data de Modificação</td>
+                <td>Editar</td>
+                <td>Bloquear</td>
+            </tr>
+            {% for dado in dados %}
+            <tr class="{% if loop.index is even %}table-primary{% else %}table-light{% endif %}">
+                <th scope="row">{{ dado.firstName }}</th>
+                <td>{{ dado.password }}</td>
+                {% if dado.status == 1 %}
+                    <td>Ativo</td>
+                {% elif dado.status == 0 %}
+                    <td>Bloqueado</td>
+                {% else %}
+                    <td>Inativo</td>
+                {% endif %}
+                <td>{{ dado.created }}</td>
+                <td>{{ dado.modified }}</td>
+                <td>
+                    <form action="/users" method="delete">
+                        <button onclick="window.location.href='/login';" type="button"><span class="material-symbols-outlined">Edit</span></button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/users" method="delete">
+                        <button value="{{ dado.id }}" type="submit"><span class="material-symbols-outlined">Block</span></button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+{% endblock %}
