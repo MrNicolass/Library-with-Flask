@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+ 
+{% block content %}
+    <h1>{% block title %} Editando o Usuário: {{ usuario }} {% endblock %}</h1>
+
+    <form action="/users" method="post">
+        <div style="margin: 3% 25% 25% 25%; padding: 2rem;" class="card border-primary mb-3">
+            <!-- Login -->
+            <h4 class="form-label mt-4">Login</h4>
+            <input name="login" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ dados.login }}" required disabled>
+            <!-- Nome -->
+            <h4 class="form-label mt-4">Nome</h4>
+            <input name="firstName" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="firstNameHelp" value="{{ dados.firstName }}" required>
+            <!-- Sobrenome -->
+            <h4 class="form-label mt-4">Sobrenome</h4>
+            <input name="lastName" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="lastNameHelp" value="{{ dados.lastName }}" required>
+            <!-- Situação -->
+            <h4 class="form-label mt-4">Situação</h4>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="optionsStatus" id="optionsRadios1" value="1" {% if dados.status == 1 %} checked {% endif %}>
+                <label class="form-check-label" for="optionsRadios1">Ativo</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="optionsStatus" id="optionsRadios2" value="0" {% if dados.status == 0 %} checked {% endif %}>
+                <label class="form-check-label" for="optionsRadios3">Inativo</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="optionsStatus" id="optionsRadios3" value="2" {% if dados.status == 2 %} checked {% endif %}>
+                <label class="form-check-label" for="optionsRadios2">Bloqueado</label>
+            </div>
+            <input type="hidden" name="_method" value="PUT">
+            <input type="hidden" name="id" value="{{ dados.id }}">
+            <div class="d-grid gap-2 form-label mt-4">
+                <button class="btn btn-primary" type="submit">Salvar</button>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}

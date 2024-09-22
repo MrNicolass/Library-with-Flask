@@ -3,6 +3,7 @@ from database.dbFunctions import init_app, init_db
 from routes import bp as routes_bp
 
 app = Flask(__name__, template_folder= "pages")
+app.config["SECRET_KEY"] = "random string"
 
 # Inicializar o banco de dados
 init_app(app)

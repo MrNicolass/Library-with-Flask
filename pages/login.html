@@ -1,7 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-dismissible alert-danger">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <strong>Oh Droga...</strong> {{ message }}
+              </div>
+            {% endfor %}
+        {% endif %}
+    <form action="/login" method="post">
         <fieldset>
             <div class="d-flex align-items-center justify-content-center">
             <div class="card border-primary mb-3" style="max-width: 30rem; width: 25rem;">
@@ -9,11 +18,11 @@
                 <div class="card-body">
                     <div>
                         <h4 for="exampleInputEmail1" class="form-label mt-4">Login</h4>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Digite seu e-mail">
+                        <input name="login" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Digite seu e-mail" required>
                     </div>
                     <div>
                         <h4 for="exampleInputPassword1" class="form-label mt-4">Senha</h4>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Digite sua senha" autocomplete="off">
+                        <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Digite sua senha" autocomplete="off" required>
                     </div>
                     <div class="d-grid gap-2 form-label mt-4">
                         <button class="btn btn-primary" type="submit">Login</button>
@@ -23,5 +32,5 @@
             </div>
         </fieldset>
     </form>
-
+    {% endwith %}
 {% endblock %}

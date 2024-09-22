@@ -2,6 +2,27 @@
 
 {% block content %}
     <h1>{% block title %} Usuários {% endblock %}</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            {% if messages and category == 'success' %}
+                <div class="alert alert-dismissible alert-success">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <strong>Sucesso,</strong> {{ message }}
+                </div>
+            {% elif messages and category == 'error' %}
+                <div class="alert alert-dismissible alert-danger">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <strong>Opa...</strong> {{ message }}
+                </div>
+            {% elif messages and category == 'warning' %}
+                <div class="alert alert-dismissible alert-warning">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <strong>Eita...</strong> {{ message }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endwith %}
  
     <table class="table table-hover">
         <thead>
@@ -20,7 +41,7 @@
                 <td>{{ dado.password }}</td>
                 {% if dado.status == 1 %}
                     <td>Ativo</td>
-                {% elif dado.status == 0 %}
+                {% elif dado.status == 2 %}
                     <td>Bloqueado</td>
                 {% else %}
                     <td>Inativo</td>
@@ -28,13 +49,15 @@
                 <td>{{ dado.created }}</td>
                 <td>{{ dado.modified }}</td>
                 <td>
-                    <form action="/users" method="delete">
-                        <button onclick="window.location.href='/login';" type="button"><span class="material-symbols-outlined">Edit</span></button>
+                    <form action="/users" method="post">
+                        <input type="hidden" name="_method" value="GET">
+                        <button name="id" value="{{ dado.id }}" type="submit"><span class="material-symbols-outlined">Edit</span></button>
                     </form>
                 </td>
                 <td>
-                    <form action="/users" method="delete">
-                        <button value="{{ dado.id }}" type="submit"><span class="material-symbols-outlined">Block</span></button>
+                    <form action="/users" method="post">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button name="id" value="{{ dado.id }}" type="submit"><span class="material-symbols-outlined">Block</span></button>
                     </form>
                 </td>
             </tr>
