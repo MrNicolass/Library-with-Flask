@@ -10,6 +10,30 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             <strong>Olá,</strong> {{ message }}
           </div>
+
+        {% if not google_data %} 
+        <p style="color:#333;">You are not logged in, Click on the below link to sign in with google.</p> 
+            <a href="/loginOAuth" class="google-btn">
+            <div class="google-icon-wrapper"> 
+                <img class="google-icon"src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" /> </div>
+                <p class="btn-text">
+                    <b>Sign in with google</b>
+                </p>
+            </a>
+        {% else %} 
+            <p>Hi {{ google_data.name }}, [<strong>{{ google_data.email }}</strong>]. You have logged in successfully from your Google Account. Check your below details.</p> 
+            {% if google_data is not none %}
+                <div class="detail">
+                    <p style="font-size: 15px; padding-bottom: 10px;">User info fetched from <strong>{{ fetch_url }}</strong></p> 
+                    {% for key, value in google_data.items() %} <p><strong>{{ key }}</strong>: {{ value }}</p> 
+                        {% if(key == 'picture') %} 
+                            <img src="{{ value }}" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 50%;"> 
+                        {% endif %} 
+                    {% endfor %}
+                </div> 
+            {% endif %} 
+        {% endif %}
+    
         {% endfor %}
     {% endif %}
     {% endwith %}
