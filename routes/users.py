@@ -1,8 +1,10 @@
 from flask import redirect, render_template, request, jsonify, flash, url_for
+from flask_dance.contrib.google import google
+from flask_dance.contrib.github import github
+from bcrypt import *
+import re
 from . import bp
 from database.dbFunctions import get_db
-import re
-from bcrypt import *
 
 #region Geral/Validation Functions
 #Funcion if it is a valid email
@@ -21,7 +23,9 @@ def isUserBlocked(login, cursor):
 #region Auth Functions
 @bp.route('/login',  methods=['GET', 'POST'])
 def login():
-    if request.method == 'POST':
+    if google.authorized or github.authorized:
+        return redirect(url_for('routes.home'))
+    elif request.method == 'POST':
         return login_user()
     elif request.method == 'GET':
         return render_template("login.html")

@@ -4,16 +4,19 @@
     <h1>{% block title %} Home {% endblock %}</h1>
     
     {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        {% for category, message in messages %}
-        <div class="alert alert-dismissible alert-success">
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            <strong>Olá,</strong> {{ message }}
-          </div>
+        {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-dismissible alert-success">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <strong>Olá,</strong> {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 
-        {% if not google_data %} 
+    {% if not google_data %} 
         <p style="color:#333;">You are not logged in, Click on the below link to sign in with google.</p> 
-            <a href="/loginOAuth" class="google-btn">
+            <a href="/loginOAuthGoogle" class="google-btn">
             <div class="google-icon-wrapper"> 
                 <img class="google-icon"src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" /> </div>
                 <p class="btn-text">
@@ -33,9 +36,29 @@
                 </div> 
             {% endif %} 
         {% endif %}
+
     
-        {% endfor %}
+    {% if not github_data %} 
+        <p style="color:#333;">You are not logged in, Click on the below link to sign in with google.</p> 
+            <a href="/loginOAuthGoogle" class="google-btn">
+            <div class="google-icon-wrapper"> 
+                <img class="google-icon"src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" /> </div>
+                <p class="btn-text">
+                    <b>Sign in with google</b>
+                </p>
+            </a>
+        {% else %} 
+            <p>Hi {{ github_data.name }}, [<strong>{{ github_data.email }}</strong>]. You have logged in successfully from your Google Account. Check your below details.</p> 
+            {% if github_data is not none %}
+                <div class="detail">
+                    <p style="font-size: 15px; padding-bottom: 10px;">User info fetched from <strong>{{ fetch_url }}</strong></p> 
+                    {% for key, value in github_data.items() %} <p><strong>{{ key }}</strong>: {{ value }}</p> 
+                        {% if(key == 'picture') %} 
+                            <img src="{{ value }}" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 50%;"> 
+                        {% endif %} 
+                    {% endfor %}
+                </div> 
+            {% endif %} 
     {% endif %}
-    {% endwith %}
 
 {% endblock %}

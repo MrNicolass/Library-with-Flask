@@ -1,70 +1,85 @@
-a {
-    text-decoration: none;
-}
-
-td {
-    text-align: center;
-}
-
-button, input[type="submit"], input[type="reset"] {
-	background: none;
-	color: inherit;
-	border: none;
-	padding: 0;
-	font: inherit;
-	cursor: pointer;
-	outline: inherit;
-}
-
-@import url(https://fonts.googleapis.com/css?family=Roboto:500);
-
-.detail {
-	margin: 0;
-	padding-left: 5px;
-	border: solid gold 3px;
-	background-color: beige;
+.google-btn, .github-btn {
+    width: 184px;
+    height: 42px;
+    border-radius: 2px;
+    box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
+    display: inline-block;
+    margin-right: 10px; /* Espaço entre os botões */
 }
 
 .google-btn {
-	width: 184px;
-	height: 42px;
-	background-color: #4285f4;
-	border-radius: 2px;
-	box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
-	display: block;
+    background-color: #4285f4;
 }
 
 .google-btn .google-icon-wrapper {
-	position: absolute;
-	margin-top: 1px;
-	margin-left: 1px;
-	width: 40px;
-	height: 40px;
-	border-radius: 2px;
-	background-color: #fff;
+    position: absolute;
+    margin-top: 1px;
+    margin-left: 1px;
+    width: 40px;
+    height: 40px;
+    border-radius: 2px;
+    background-color: #fff;
 }
 
 .google-btn .google-icon {
-	position: absolute;
-	margin-top: 11px;
-	margin-left: 11px;
-	width: 18px;
-	height: 18px;
+    position: absolute;
+    margin-top: 11px;
+    margin-left: 11px;
+    width: 18px;
+    height: 18px;
 }
 
 .google-btn .btn-text {
-	float: right;
-	margin: 11px 11px 0 0;
-	color: #fff;
-	font-size: 14px;
-	letter-spacing: 0.2px;
-	font-family: "Roboto";
+    float: right;
+    margin: 11px 11px 0 0;
+    color: #fff;
+    font-size: 12px;
+    letter-spacing: 0.2px;
 }
 
 .google-btn:hover {
-	box-shadow: 0 0 6px #4285f4;
+    box-shadow: 0 0 6px #4285f4;
 }
 
 .google-btn:active {
-	background: #1669f2;
+    background: #1669f2;
+}
+
+.github-btn {
+    background-color: #333;
+    color: white;
+}
+
+.github-btn .github-icon-wrapper {
+    position: absolute;
+    margin-top: 1px;
+    margin-left: 1px;
+    width: 40px;
+    height: 40px;
+    border-radius: 2px;
+    background-color: #fff;
+}
+
+.github-btn .github-icon {
+    position: absolute;
+    margin-top: 11px;
+    margin-left: 11px;
+    width: 18px;
+    height: 18px;
+}
+
+.github-btn .btn-text {
+    float: right;
+    margin: 11px 11px 0 0;
+    color: #fff;
+    font-size: 12px;
+    letter-spacing: 0.2px;
+}
+
+.github-btn:hover {
+    box-shadow: 0 0 6px #333;
+}
+
+.github-btn:active {
+    background: #222;
 }
