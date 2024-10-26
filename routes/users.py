@@ -1,4 +1,4 @@
-from flask import redirect, render_template, request, jsonify, flash, url_for
+from flask import make_response, redirect, render_template, request, jsonify, flash, session, url_for
 from flask_dance.contrib.google import google
 from flask_dance.contrib.github import github
 from bcrypt import *
@@ -7,6 +7,7 @@ from . import bp
 from database.dbFunctions import get_db
 
 #region Geral/Validation Functions
+
 #Funcion if it is a valid email
 def email_validation(email):
     pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
@@ -61,6 +62,12 @@ def login_user():
         return jsonify({"Error": str(e)}), 500
     finally:
         ...
+
+@bp.route('/logout')
+def logout():
+    session.clear()
+    flash("Deslogado com Sucesso!", "success")
+    return redirect(url_for('routes.login'))
 
 @bp.route('/register')
 def register():
