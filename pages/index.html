@@ -4,14 +4,38 @@
     <h1>{% block title %} Home {% endblock %}</h1>
     
     {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        {% for category, message in messages %}
-        <div class="alert alert-dismissible alert-success">
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            <strong>Olá,</strong> {{ message }}
-          </div>
-        {% endfor %}
-    {% endif %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-dismissible alert-success">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <strong>Olá,</strong> {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
     {% endwith %}
+
+    {% if google_data is not none and (google_data.error.status != 'UNAUTHENTICATED') %}
+        <p>Hi {{ google_data.name }}, [<strong>{{ google_data.email }}</strong>]. You have logged in successfully from your Google Account. Check your below details.</p> 
+        <div class="detail">
+            <p style="font-size: 15px; padding-bottom: 10px;">User info fetched from <strong>{{ fetch_url }}</strong></p> 
+            {% for key, value in google_data.items() %} <p><strong>{{ key }}</strong>: {{ value }}</p> 
+                {% if(key == 'picture') %} 
+                    <img src="{{ value }}" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 50%;"> 
+                {% endif %} 
+            {% endfor %}
+        </div> 
+    {% endif %}
+
+    {% if github_data is not none and (github_data.message != 'Requires authentication') %}
+        <p>Hi {{ github_data.name }}, [<strong>{{ github_data.email }}</strong>]. You have logged in successfully from your Google Account. Check your below details.</p> 
+        <div class="detail">
+            <p style="font-size: 15px; padding-bottom: 10px;">User info fetched from <strong>{{ fetch_url }}</strong></p> 
+            {% for key, value in github_data.items() %} <p><strong>{{ key }}</strong>: {{ value }}</p> 
+                {% if(key == 'picture') %} 
+                    <img src="{{ value }}" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 50%;"> 
+                {% endif %} 
+            {% endfor %}
+        </div> 
+    {% endif %} 
 
 {% endblock %}

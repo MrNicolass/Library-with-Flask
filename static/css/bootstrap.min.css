@@ -8005,7 +8005,8 @@ fieldset:disabled .btn {
 }
 
 .d-flex {
-    display: flex !important
+    display: flex !important;
+    margin-top: 10rem !important;
 }
 
 .d-inline-flex {

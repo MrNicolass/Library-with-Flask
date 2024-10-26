@@ -4,10 +4,17 @@
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}
-            <div class="alert alert-dismissible alert-danger">
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                <strong>Oh Droga...</strong> {{ message }}
-              </div>
+                {% if category == 'success' %}
+                    <div class="alert alert-dismissible alert-success">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <strong>Oh Droga...</strong> {{ message }}
+                    </div>
+                {% elif category == 'error' %}
+                    <div class="alert alert-dismissible alert-danger">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <strong>Oh Droga...</strong> {{ message }}
+                    </div>
+                {% endif %}
             {% endfor %}
         {% endif %}
     <form action="/login" method="post">
@@ -26,7 +33,25 @@
                     </div>
                     <div class="d-grid gap-2 form-label mt-4">
                         <button class="btn btn-primary" type="submit">Login</button>
-                        <button onclick="window.location.href='/register';" class="btn btn-outline-secondary" type="button">Registrar</button></a>
+                        <button onclick="window.location.href='/register';" class="btn btn-outline-secondary" type="button">Registrar</button>
+                    </div>
+                    <div style="display: inline-flex; width: 103%;">
+                        <a href="/loginOAuthGoogle" class="google-btn">
+                            <div class="google-icon-wrapper"> 
+                                <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png" /> 
+                            </div>
+                            <p class="btn-text">
+                                <b>Faça Login com Google</b>
+                            </p>
+                        </a>
+                        <a href="/loginOAuthGithub" class="github-btn">
+                            <div class="github-icon-wrapper"> 
+                                <img class="github-icon" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" /> 
+                            </div>
+                            <p class="btn-text">
+                                <b>Faça Login com GitHub</b>
+                            </p>
+                        </a>
                     </div>
                 </div>
             </div>

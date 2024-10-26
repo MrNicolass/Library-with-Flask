@@ -1,10 +1,13 @@
-from flask import redirect, render_template, request, jsonify, flash, url_for
+from flask import make_response, redirect, render_template, request, jsonify, flash, session, url_for
+from flask_dance.contrib.google import google
+from flask_dance.contrib.github import github
+from bcrypt import *
+import re
 from . import bp
 from database.dbFunctions import get_db
-import re
-from bcrypt import *
 
 #region Geral/Validation Functions
+
 #Funcion if it is a valid email
 def email_validation(email):
     pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
@@ -21,7 +24,9 @@ def isUserBlocked(login, cursor):
 #region Auth Functions
 @bp.route('/login',  methods=['GET', 'POST'])
 def login():
-    if request.method == 'POST':
+    if google.authorized or github.authorized:
+        return redirect(url_for('routes.home'))
+    elif request.method == 'POST':
         return login_user()
     elif request.method == 'GET':
         return render_template("login.html")
@@ -57,6 +62,12 @@ def login_user():
         return jsonify({"Error": str(e)}), 500
     finally:
         ...
+
+@bp.route('/logout')
+def logout():
+    session.clear()
+    flash("Deslogado com Sucesso!", "success")
+    return redirect(url_for('routes.login'))
 
 @bp.route('/register')
 def register():
