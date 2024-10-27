@@ -174,7 +174,7 @@ def forgot_password_user(token):
             #Database connection handling
             db = get_db()
             cursor = db.cursor()
-            cursor.execute(f"UPDATE users SET password = '{passHash}' WHERE login = '{email}'")
+            cursor.execute(f"UPDATE users SET password = '{passHash}', modified = DATETIME(CURRENT_TIMESTAMP, '-3 hours') WHERE login = '{email}'")
             db.commit()
 
         except Exception as e:
