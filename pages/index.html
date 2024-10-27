@@ -14,7 +14,11 @@
         {% endif %}
     {% endwith %}
 
-    {% if google_data is not none and (google_data.error.status != 'UNAUTHENTICATED') %}
+    {% if session is not none%}
+        <p>Seu login de sessão é: <strong>{{ session }}</strong></p> 
+    {% endif %}
+
+    {% if google_data is not none and google_data.error is not none %}
         <p>Hi {{ google_data.name }}, [<strong>{{ google_data.email }}</strong>]. You have logged in successfully from your Google Account. Check your below details.</p> 
         <div class="detail">
             <p style="font-size: 15px; padding-bottom: 10px;">User info fetched from <strong>{{ fetch_url }}</strong></p> 

@@ -67,6 +67,10 @@
             <li><code>pip install flask</code></li>
             <li><code>pip install bcrypt</code></li>
             <li><code>pip install pysqlite3</code></li>
+            <li><code>pip install flask_dance</code></li>
+            <li><code>pip install flask-email</code></li>
+            <li><code>pip install python-dotenv</code></li>
+            <li><code>pip install flask-session</code></li>
         </ol>
     </li>
     <li>Now, just open <code>main.py</code> and run it with, to run the server you can use two methods:

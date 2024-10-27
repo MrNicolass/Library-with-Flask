@@ -1,4 +1,4 @@
-from flask import make_response, redirect, render_template, request, jsonify, flash, session, url_for
+from flask import make_response, redirect, render_template, request, jsonify, flash, url_for, session
 from flask_dance.contrib.google import google
 from flask_dance.contrib.github import github
 from bcrypt import *
@@ -21,75 +21,32 @@ def isUserBlocked(login, cursor):
 
 #endregion
 
-#region Auth Functions
-@bp.route('/login',  methods=['GET', 'POST'])
-def login():
-    if google.authorized or github.authorized:
-        return redirect(url_for('routes.home'))
-    elif request.method == 'POST':
-        return login_user()
-    elif request.method == 'GET':
-        return render_template("login.html")
-    else:
-        return render_template("login.html")
-
-def login_user():
-    try:
-        #Database connection handling
-        db = get_db()
-        cursor = db.cursor()
-
-        #Getting data
-        login = request.form['login']
-        password = request.form['password'].encode('utf-8')
-
-        #Validations
-        if not userExists(login, cursor) or isUserBlocked(login, cursor)[0] == 2:
-            flash("Usuário não cadastrado ou bloqueado, contate o suporte!", "error")
-            return redirect(url_for('routes.login'))
-        
-        getPassword = cursor.execute(f"SELECT password FROM users WHERE LOWER(login) = LOWER('{login}')").fetchone()[0].encode('utf-8')
-        
-        if not checkpw(password, getPassword):
-            flash("Senha Incorreta!", "error")
-            return redirect(url_for('routes.login'))
-        else:
-            flash("Logado com Sucesso!", "success")
-            return redirect(url_for('routes.home'))
-
-        
-    except Exception as e:
-        return jsonify({"Error": str(e)}), 500
-    finally:
-        ...
-
-@bp.route('/logout')
-def logout():
-    session.clear()
-    flash("Deslogado com Sucesso!", "success")
-    return redirect(url_for('routes.login'))
-
-@bp.route('/register')
-def register():
-    return render_template("register.html")
-#endregion
-
 #region Users Functions
 @bp.route('/users', methods=['GET', 'POST', 'DELETE'])
 def users():
-    userId = request.form['id'] if 'id' in request.form else None
-    method = request.form['_method'] if '_method' in request.form else None
+    if 'session' in session or google.authorized or github.authorized:
+        userId = request.form['id'] if 'id' in request.form else None
+        method = request.form['_method'] if '_method' in request.form else None
 
-    if request.method == 'GET':
-        return get_users()
-    elif request.method == 'POST' and (userId == None or userId == "") and method == None:
-        return create_user()
-    elif request.method == 'POST' and userId != None and method == "DELETE":
-        return block_user()
-    elif request.method == 'POST' and userId != None and method == "GET":
-        return get_user()
-    elif request.method == 'POST' and method == "PUT":
-        return edit_user()
+        if request.method == 'GET':
+            return get_users()
+        
+        elif request.method == 'POST' and (userId == None or userId == "") and method == None:
+            return create_user()
+        
+        elif request.method == 'POST' and userId != None and method == "DELETE":
+            return block_user()
+        
+        elif request.method == 'POST' and userId != None and method == "GET":
+            return get_user()
+        
+        elif request.method == 'POST' and method == "PUT":
+            return edit_user()
+    
+    else:
+        flash("Faça login para acessar essa página!", "error")
+        return redirect(url_for('routes.login'))
+    
 
 def get_users():
     try:
