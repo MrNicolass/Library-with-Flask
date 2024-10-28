@@ -1,7 +1,7 @@
 <h1>N1 - Web Library with Flask</h1>
 <div>
 <img alt="Static Badge" src="https://img.shields.io/badge/Status-In_Progress-yellow">
-<img alt="Static Badge" src="https://img.shields.io/badge/Step-N1-Green"><img alt="Static Badge" src="https://img.shields.io/badge/N2-black"><img alt="Static Badge" src="https://img.shields.io/badge/N3-black">
+<img alt="Static Badge" src="https://img.shields.io/badge/Step-N1-Green"><img alt="Static Badge" src="https://img.shields.io/badge/N2-Green"><img alt="Static Badge" src="https://img.shields.io/badge/N3-black">
 </div>
 <h2>Summary</h2>
 <p>It's a simple website developed with pure Python (API), HTML and CSS (design) in order to learn how API's works; Was proposed as test (N1 = first grade), consisting in one of three notes we've the semester of software engineering degree of Católica University in Jaraguá do Sul, Brazil.</p>
