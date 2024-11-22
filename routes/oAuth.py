@@ -2,9 +2,9 @@ from flask import redirect, render_template, request, jsonify, flash, url_for, s
 from flask_dance.contrib.google import make_google_blueprint, google
 from flask_dance.contrib.github import make_github_blueprint, github
 from itsdangerous import BadSignature, SignatureExpired
+from bcrypt import checkpw, gensalt, hashpw
 from dotenv import load_dotenv
 from flask_mail import Message
-from bcrypt import checkpw, gensalt, hashpw
 import os
 
 #Local Imports
@@ -80,6 +80,7 @@ def loginOAuthGithub():
 #region Login Functions
 @bp.route('/login',  methods=['GET', 'POST'])
 def login():
+    session['url'] = url_for('routes.login')
     if google.authorized or github.authorized:
         return redirect(url_for('routes.home'))
     elif request.method == 'POST':
