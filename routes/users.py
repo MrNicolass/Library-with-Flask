@@ -47,7 +47,6 @@ def users():
         flash("Faça login para acessar essa página!", "error")
         return redirect(url_for('routes.login'))
     
-
 def get_users():
     try:
         #Database connection handling
@@ -178,4 +177,5 @@ def edit_user():
     finally:
         cursor.close()
         db.close()
+
 #endregion

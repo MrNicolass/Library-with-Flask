@@ -7,12 +7,12 @@
                 {% if category == 'success' %}
                     <div class="alert alert-dismissible alert-success">
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        <strong>Perfeito!</strong> {{ message }}
+                        <strong>{{ _('Perfeito!') }}</strong> {{ message }}
                     </div>
                 {% elif category == 'error' %}
                     <div class="alert alert-dismissible alert-danger">
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        <strong>Oh Droga...</strong> {{ message }}
+                        <strong>{{ _('Oh droga...') }}</strong> {{ message }}
                     </div>
                 {% endif %}
             {% endfor %}
@@ -25,15 +25,15 @@
                 <div class="card-body">
                     <div>
                         <h4 for="exampleInputEmail1" class="form-label mt-4">Login</h4>
-                        <input name="login" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Digite seu e-mail" required>
+                        <input name="login" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="{{ _('Digite seu e-mail') }}" required>
                     </div>
                     <div>
-                        <h4 for="exampleInputPassword1" class="form-label mt-4">Senha</h4>
-                        <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Digite sua senha" autocomplete="off" required>
+                        <h4 for="exampleInputPassword1" class="form-label mt-4">{{ _('Senha') }}</h4>
+                        <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="{{ _('Digite sua senha') }}" autocomplete="off" required>
                     </div>
                     <div class="d-grid gap-2 form-label mt-4">
-                        <button class="btn btn-primary" type="submit">Login</button>
-                        <button onclick="window.location.href='/register';" class="btn btn-outline-secondary" type="button">Registrar</button>
+                        <button class="btn btn-primary" type="submit">{{ _('Entrar') }}</button>
+                        <button onclick="window.location.href='/register';" class="btn btn-outline-secondary" type="button">{{ _('Registrar') }}</button>
                     </div>
                     <div style="display: inline-flex; width: 103%;">
                         <a href="/loginOAuthGoogle" class="google-btn">
@@ -41,7 +41,7 @@
                                 <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png" /> 
                             </div>
                             <p class="btn-text">
-                                <b>Faça Login com Google</b>
+                                <b>{{ _('Faça Login com Google') }}</b>
                             </p>
                         </a>
                         <a href="/loginOAuthGithub" class="github-btn">
@@ -49,12 +49,12 @@
                                 <img class="github-icon" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" /> 
                             </div>
                             <p class="btn-text">
-                                <b>Faça Login com GitHub</b>
+                                <b>{{ _('Faça Login com GitHub') }}</b>
                             </p>
                         </a>
                     </div>
                     <div>
-                        <a href="/forgotPassword" class="icon-link" style="display: grid; justify-items: center; margin: 0.3rem 0 0.1rem 0;"><i>Esqueceu sua senha?</i></a>
+                        <a href="/forgotPassword" class="icon-link" style="display: grid; justify-items: center; margin: 0.3rem 0 0.1rem 0;"><i>{{ _('Esqueceu sua senha?') }}</i></a>
                     </div>
                 </div>
             </div>

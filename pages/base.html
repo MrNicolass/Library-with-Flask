@@ -24,32 +24,15 @@
         aria-controls="navbarColor01" aria-expanded="true" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="navbar-collapse collapse show" id="navbarColor01" style="">
+      <div class="navbar-collapse collapse show" id="navbarColor01">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link active" href="/home">Home
+            <a class="nav-link active" href="/home">{{ _('Início') }}
               <span class="visually-hidden">(current)</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/users">Usuários</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-              aria-expanded="false">Dropdown</a>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Separated link</a>
-            </div>
+            <a class="nav-link" href="/users">{{ _('Usuários') }}</a>
           </li>
         </ul>
         <ul class="navbar-nav">
@@ -61,41 +44,42 @@
               </svg>
             </a>
             <div class="dropdown-menu dropdown-menu-end">
-              <a class="dropdown-item" href="/profile">Perfil</a>
-              <a class="dropdown-item" href="/logout">Exit</a>
+              <a class="dropdown-item" href="/profile">{{ _('Perfil') }}</a>
+              <a class="dropdown-item" href="/logout">{{ _('Sair') }}</a>
             </div>
           </li>
         </ul>
         <!-- Language -->
         <ul class="navbar-nav">
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">    
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">              
               {% if session['language'] == "en" %}
                 <image width="40rem" height="40rem" src="../static/images/us.svg"/>
               {% elif session['language'] == "pt_BR" %}
                 <image width="40rem" height="40rem" src="../static/images/br.svg"/>
               {% elif session['language'] == "es" %}
                 <image width="40rem" height="40rem" src="../static/images/es.svg"/>
+              {% else %}
+                <image width="40rem" height="40rem" src="../static/images/br.svg"/>
               {% endif %}
-              <!-- <image width="40rem" height="40rem" src="../static/images/br.svg"/> -->
             </a>
             <div class="dropdown-menu dropdown-menu-end">
               <form method="post" action="/set_language">
                 <input type="hidden" name="language" value="en">
                 <button type="submit" class="dropdown-item">
-                  <image width="80rem" height="40rem" src="../static/images/us.svg"/> English
+                  <image width="80rem" height="40rem" src="../static/images/us.svg"/> {{ _('Inglês') }}
                 </button>
               </form>
               <form method="post" action="/set_language">
                 <input type="hidden" name="language" value="pt_BR">
                 <button type="submit" class="dropdown-item">
-                  <image width="80rem" height="40rem" src="../static/images/br.svg"/> Português
+                  <image width="80rem" height="40rem" src="../static/images/br.svg"/> {{ _('Português') }}
                 </button>
               </form>
               <form method="post" action="/set_language">
                 <input type="hidden" name="language" value="es">
                 <button type="submit" class="dropdown-item">
-                  <image width="80rem" height="40rem" src="../static/images/es.svg"/> Español
+                  <image width="80rem" height="40rem" src="../static/images/es.svg"/> {{ _('Espanhol') }}
                 </button>
               </form>
               </div>

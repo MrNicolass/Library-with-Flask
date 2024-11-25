@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-11-19 19:41-0300\n"
+"POT-Creation-Date: 2024-11-24 21:06-0300\n"
 "PO-Revision-Date: 2024-11-19 19:44-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -22,7 +22,99 @@ msgstr ""
 msgid "Biblioteca"
 msgstr "Biblioteca"
 
+#: pages/base.html:30
+msgid "Início"
+msgstr "Inicio"
+
+#: pages/base.html:35
+msgid "Usuários"
+msgstr "Usuarios"
+
+#: pages/base.html:47
+msgid "Perfil"
+msgstr "Perfil"
+
+#: pages/base.html:48
+msgid "Sair"
+msgstr "Salir"
+
+#: pages/base.html:70
+msgid "Inglês"
+msgstr "Inglés"
+
+#: pages/base.html:76
+msgid "Português"
+msgstr "Portugués"
+
+#: pages/base.html:82
+msgid "Espanhol"
+msgstr "Español"
+
+#: pages/login.html:10
+msgid "Perfeito!"
+msgstr "Perfecto!"
+
+#: pages/login.html:15
+msgid "Oh droga..."
+msgstr "Oh maldita sea..."
+
 #: pages/login.html:24
 msgid "Seja Bem-Vindo!"
 msgstr "Bienvenido!"
+
+#: pages/login.html:28 pages/register.html:14
+msgid "Digite seu e-mail"
+msgstr "Introduce tu correo electrónico"
+
+#: pages/login.html:31 pages/register.html:16
+msgid "Senha"
+msgstr "Contraseña"
+
+#: pages/login.html:32 pages/register.html:17
+msgid "Digite sua senha"
+msgstr "Introduce tu contraseña"
+
+#: pages/login.html:35
+msgid "Entrar"
+msgstr "Entrar"
+
+#: pages/login.html:36 pages/register.html:26
+msgid "Registrar"
+msgstr "Registro"
+
+#: pages/login.html:44
+msgid "Faça Login com Google"
+msgstr "Iniciar sesión c/ Google"
+
+#: pages/login.html:52
+msgid "Faça Login com GitHub"
+msgstr "Iniciar sesión c/ GitHub"
+
+#: pages/login.html:57
+msgid "Esqueceu sua senha?"
+msgstr "¿Olvidaste tu contraseña?"
+
+#: pages/register.html:9
+msgid "Hora de se registrar!"
+msgstr "Hora de registrarse!"
+
+#: pages/register.html:19
+msgid "Nome"
+msgstr "Nombre"
+
+#: pages/register.html:20
+msgid "Digite seu nome"
+msgstr "Introduce tu correo nombre"
+
+#: pages/register.html:22
+msgid "Sobrenome"
+msgstr "Apellido"
+
+#: pages/register.html:23
+msgid "Digite seu sobrenome"
+msgstr "Introduce tu apellido"
+
+#: pages/register.html:28
+msgid "Voltar"
+msgstr "Voltear"
 

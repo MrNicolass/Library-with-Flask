@@ -80,8 +80,7 @@ def before_request():
 @app.route('/set_language', methods=['POST'])
 def set_language():
     language = request.form['language'] if 'language' in request.form else 'pt_BR'
-    #response = redirect(session['url'])
-    response = redirect(url_for('routes.login'))
+    response = redirect(request.referrer) #Redirects to the previous page
     response.set_cookie('language', language)
     session['language'] = language
     return response

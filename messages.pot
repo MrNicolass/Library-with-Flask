@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-11-19 19:41-0300\n"
+"POT-Creation-Date: 2024-11-24 21:06-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,99 @@ msgstr ""
 msgid "Biblioteca"
 msgstr ""
 
+#: pages/base.html:30
+msgid "Início"
+msgstr ""
+
+#: pages/base.html:35
+msgid "Usuários"
+msgstr ""
+
+#: pages/base.html:47
+msgid "Perfil"
+msgstr ""
+
+#: pages/base.html:48
+msgid "Sair"
+msgstr ""
+
+#: pages/base.html:70
+msgid "Inglês"
+msgstr ""
+
+#: pages/base.html:76
+msgid "Português"
+msgstr ""
+
+#: pages/base.html:82
+msgid "Espanhol"
+msgstr ""
+
+#: pages/login.html:10
+msgid "Perfeito!"
+msgstr ""
+
+#: pages/login.html:15
+msgid "Oh droga..."
+msgstr ""
+
 #: pages/login.html:24
 msgid "Seja Bem-Vindo!"
+msgstr ""
+
+#: pages/login.html:28 pages/register.html:14
+msgid "Digite seu e-mail"
+msgstr ""
+
+#: pages/login.html:31 pages/register.html:16
+msgid "Senha"
+msgstr ""
+
+#: pages/login.html:32 pages/register.html:17
+msgid "Digite sua senha"
+msgstr ""
+
+#: pages/login.html:35
+msgid "Entrar"
+msgstr ""
+
+#: pages/login.html:36 pages/register.html:26
+msgid "Registrar"
+msgstr ""
+
+#: pages/login.html:44
+msgid "Faça Login com Google"
+msgstr ""
+
+#: pages/login.html:52
+msgid "Faça Login com GitHub"
+msgstr ""
+
+#: pages/login.html:57
+msgid "Esqueceu sua senha?"
+msgstr ""
+
+#: pages/register.html:9
+msgid "Hora de se registrar!"
+msgstr ""
+
+#: pages/register.html:19
+msgid "Nome"
+msgstr ""
+
+#: pages/register.html:20
+msgid "Digite seu nome"
+msgstr ""
+
+#: pages/register.html:22
+msgid "Sobrenome"
+msgstr ""
+
+#: pages/register.html:23
+msgid "Digite seu sobrenome"
+msgstr ""
+
+#: pages/register.html:28
+msgid "Voltar"
 msgstr ""
 

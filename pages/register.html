@@ -6,26 +6,26 @@
     <fieldset>
         <div class="d-flex align-items-center justify-content-center">
             <div class="card border-primary mb-3" style="max-width: 30rem; width: 25rem;">
-                <div class="card-header"> Hora de se registrar!</div>
+                <div class="card-header">{{ _('Hora de se registrar!') }}</div>
                 <div class="card-body">
                     <div>
                         <!-- E-mail -->
                         <h4 class="form-label mt-4">Login</h4>
-                        <input name="login" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Digite seu e-mail" required>
+                        <input name="login" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="{{ _('Digite seu e-mail') }}" required>
                         <!-- Senha -->
-                        <h4 class="form-label mt-4">Senha</h4>
-                        <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Digite sua senha" autocomplete="off" required>
+                        <h4 class="form-label mt-4">{{ _('Senha') }}</h4>
+                        <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="{{ _('Digite sua senha') }}" autocomplete="off" required>
                         <!-- Nome -->
-                        <h4 class="form-label mt-4">Nome</h4>
-                        <input name="firstName" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="firstNameHelp" placeholder="Digite seu nome" required>
+                        <h4 class="form-label mt-4">{{ _('Nome') }}</h4>
+                        <input name="firstName" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="firstNameHelp" placeholder="{{ _('Digite seu nome') }}" required>
                         <!-- Sobrenome -->
-                        <h4 class="form-label mt-4">Sobrenome</h4>
-                        <input name="lastName" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="lastNameHelp" placeholder="Digite seu sobrenome" required>
+                        <h4 class="form-label mt-4">{{ _('Sobrenome') }}</h4>
+                        <input name="lastName" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="lastNameHelp" placeholder="{{ _('Digite seu sobrenome') }}" required>
                     </div>
                     <div class="d-grid gap-2 form-label mt-4">
-                        <button class="btn btn-primary" type="submit">Registrar</button>
+                        <button class="btn btn-primary" type="submit">{{ _('Registrar') }}</button>
                         <button onclick="window.location.href='/login';" class="btn btn-outline-secondary"
-                            type="button">Voltar</button>
+                            type="button">{{ _('Voltar') }}</button>
                     </div>
                 </div>
             </div>
