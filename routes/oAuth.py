@@ -3,6 +3,7 @@ from flask_dance.contrib.google import make_google_blueprint, google
 from flask_dance.contrib.github import make_github_blueprint, github
 from itsdangerous import BadSignature, SignatureExpired
 from bcrypt import checkpw, gensalt, hashpw
+from flask_babel import gettext as _
 from dotenv import load_dotenv
 from flask_mail import Message
 import os
@@ -61,7 +62,7 @@ def loginOAuth():
         email = google_data
 
         if not userExists(email, get_db().cursor()):
-            flash("Usuário não cadastrado, cadastre-se primeiro!", "error")
+            flash(_("Usuário não cadastrado, cadastre-se primeiro!"), "error")
             session.clear()
             return redirect(url_for("routes.first"))
     else:
@@ -102,17 +103,17 @@ def login_user():
 
         #Validations
         if not userExists(login, cursor) or isUserBlocked(login, cursor)[0] == 2:
-            flash("Usuário não cadastrado ou bloqueado, contate o suporte!", "error")
+            flash(_("Usuário não cadastrado ou bloqueado, contate o suporte!"), "error")
             return redirect(url_for('routes.login'))
         
         getPassword = cursor.execute(f"SELECT password FROM users WHERE LOWER(login) = LOWER('{login}')").fetchone()[0].encode('utf-8')
         
         if not checkpw(password, getPassword):
-            flash("Senha Incorreta!", "error")
+            flash(_("Senha Incorreta!"), "error")
             return redirect(url_for('routes.login'))
         else:
             session['session'] = login
-            flash("Logado com Sucesso!", "success")
+            flash(_("Logado com Sucesso!"), "success")
             return redirect(url_for('routes.home'))
 
         
@@ -124,7 +125,7 @@ def login_user():
 @bp.route('/logout')
 def logout():
     session.clear()
-    flash("Deslogado com Sucesso!", "success")
+    flash(_("Deslogado com Sucesso!"), "success")
     return redirect(url_for('routes.login'))
 
 @bp.route('/register')
@@ -141,7 +142,7 @@ def forgot_password():
 
         #check if the e-mail exists
         if not userExists(email, get_db().cursor()):
-            flash('E-mail não cadastrado.', category='error')
+            flash(_("E-mail não cadastrado."), category='error')
             return render_template("forgotPassword.html")
 
         #Finish the e-mail body and send it
@@ -149,7 +150,7 @@ def forgot_password():
         msg.body = f'Clique no link a seguir para redefinir sua senha: {link}'
         app.mail.send(msg)
 
-        flash('Um link de recuperação de senha foi enviado para o seu e-mail.', category='success')
+        flash(_("Um link de recuperação de senha foi enviado para o seu e-mail."), category='success')
         return render_template("forgotPassword.html")
     else:
         return render_template("forgotPassword.html")
@@ -160,11 +161,11 @@ def forgot_password_user(token):
         email = app.serial.loads(token, salt='password_recovery', max_age=3600)
 
     except SignatureExpired:
-        flash('O link de recuperação de senha expirou.', category='error')
+        flash(_('O link de recuperação de senha expirou.'), category='error')
         return redirect(url_for('forgotPassword'))
     
     except BadSignature:
-        flash('Link inválido.', category='error')
+        flash(_('Link inválido.'), category='error')
         return redirect(url_for('forgotPassword'))
 
     if request.method == 'POST' and 'password' in request.form:
@@ -181,7 +182,7 @@ def forgot_password_user(token):
         except Exception as e:
             return jsonify({"Error": str(e)}), 500
 
-        flash('Senha alterada com sucesso.', category='success')
+        flash(_('Senha alterada com sucesso.'), category='success')
         return redirect(url_for('routes.home'))
     return render_template('recoverPassword.html', token=token)
 

@@ -1,24 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{% block title %} Usuários {% endblock %}</h1>
+    <h1>{% block title %} {{ _('Usuários') }} {% endblock %}</h1>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% for category, message in messages %}
             {% if messages and category == 'success' %}
                 <div class="alert alert-dismissible alert-success">
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    <strong>Sucesso,</strong> {{ message }}
+                    <strong>{{ _('Sucesso,') }}</strong> {{ message }}
                 </div>
             {% elif messages and category == 'error' %}
                 <div class="alert alert-dismissible alert-danger">
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    <strong>Opa...</strong> {{ message }}
+                    <strong>{{ _('Opa...') }}</strong> {{ message }}
                 </div>
             {% elif messages and category == 'warning' %}
                 <div class="alert alert-dismissible alert-warning">
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    <strong>Eita...</strong> {{ message }}
+                    <strong>{{ _('Cuidado...') }}</strong> {{ message }}
                 </div>
             {% endif %}
         {% endfor %}
@@ -27,24 +27,24 @@
     <table class="table table-hover">
         <thead>
             <tr class="table-dark">
-                <th scope="row">Nome</th>
-                <td>Senha</td>
-                <td>Situação:</td>
-                <td>Data de Criação</td>
-                <td>Data de Modificação</td>
-                <td>Editar</td>
-                <td>Bloquear</td>
+                <th scope="row">{{ _('Nome') }}</th>
+                <td>{{ _('Senha') }}</td>
+                <td>{{ _('Situação:') }}</td>
+                <td>{{ _('Data de Criação') }}</td>
+                <td>{{ _('Data de Modificação') }}</td>
+                <td>{{ _('Editar') }}</td>
+                <td>{{ _('Bloquear') }}</td>
             </tr>
             {% for dado in dados %}
             <tr class="{% if loop.index is even %}table-primary{% else %}table-light{% endif %}">
                 <th scope="row">{{ dado.firstName }}</th>
                 <td>{{ dado.password }}</td>
                 {% if dado.status == 1 %}
-                    <td>Ativo</td>
+                    <td>{{ _('Ativo') }}</td>
                 {% elif dado.status == 2 %}
-                    <td>Bloqueado</td>
+                    <td>{{ _('Bloqueado') }}</td>
                 {% else %}
-                    <td>Inativo</td>
+                    <td>{{ _('Inativo') }}</td>
                 {% endif %}
                 <td>{{ dado.created }}</td>
                 <td>{{ dado.modified }}</td>

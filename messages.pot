@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-11-24 21:06-0300\n"
+"POT-Creation-Date: 2024-12-03 19:58-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,11 +21,11 @@ msgstr ""
 msgid "Biblioteca"
 msgstr ""
 
-#: pages/base.html:30
+#: pages/base.html:30 pages/index.html:4
 msgid "Início"
 msgstr ""
 
-#: pages/base.html:35
+#: pages/base.html:35 pages/users.html:4
 msgid "Usuários"
 msgstr ""
 
@@ -49,23 +49,100 @@ msgstr ""
 msgid "Espanhol"
 msgstr ""
 
-#: pages/login.html:10
+#: pages/editUser.html:4
+msgid "Editando o Usuário:"
+msgstr ""
+
+#: pages/editUser.html:9
+msgid "Login"
+msgstr ""
+
+#: pages/editUser.html:12 pages/register.html:19 pages/users.html:30
+msgid "Nome"
+msgstr ""
+
+#: pages/editUser.html:15 pages/register.html:22
+msgid "Sobrenome"
+msgstr ""
+
+#: pages/editUser.html:18
+msgid "Situação"
+msgstr ""
+
+#: pages/editUser.html:21 pages/users.html:43
+msgid "Ativo"
+msgstr ""
+
+#: pages/editUser.html:25 pages/users.html:47
+msgid "Inativo"
+msgstr ""
+
+#: pages/editUser.html:29 pages/users.html:45
+msgid "Bloqueado"
+msgstr ""
+
+#: pages/editUser.html:34
+msgid "Salvar"
+msgstr ""
+
+#: pages/forgotPassword.html:10 pages/login.html:10
+#: pages/recoverPassword.html:10
 msgid "Perfeito!"
 msgstr ""
 
-#: pages/login.html:15
+#: pages/forgotPassword.html:15 pages/login.html:15
 msgid "Oh droga..."
+msgstr ""
+
+#: pages/forgotPassword.html:24
+msgid "Recuperação de Senha"
+msgstr ""
+
+#: pages/forgotPassword.html:28
+msgid "Digite seu e-mail para que possamos enviar uma chave de recuperação."
+msgstr ""
+
+#: pages/forgotPassword.html:29 pages/login.html:28 pages/register.html:14
+msgid "Digite seu e-mail"
+msgstr ""
+
+#: pages/forgotPassword.html:32
+msgid "Enviar"
+msgstr ""
+
+#: pages/forgotPassword.html:33 pages/register.html:28
+msgid "Voltar"
+msgstr ""
+
+#: pages/index.html:11
+msgid "Olá,"
+msgstr ""
+
+#: pages/index.html:18
+msgid "Seu login de sessão é:"
+msgstr ""
+
+#: pages/index.html:22 pages/index.html:34
+msgid "Olá!"
+msgstr ""
+
+#: pages/index.html:22
+msgid "Você logou com sucesso com sua conta Google, veja mais detalhes abaixo!"
+msgstr ""
+
+#: pages/index.html:24 pages/index.html:36
+msgid "Informações do usuário buscadas de "
+msgstr ""
+
+#: pages/index.html:34
+msgid "Você logou comsucesso com sua conta GitHub, veja mais detalhes abaixo!"
 msgstr ""
 
 #: pages/login.html:24
 msgid "Seja Bem-Vindo!"
 msgstr ""
 
-#: pages/login.html:28 pages/register.html:14
-msgid "Digite seu e-mail"
-msgstr ""
-
-#: pages/login.html:31 pages/register.html:16
+#: pages/login.html:31 pages/register.html:16 pages/users.html:31
 msgid "Senha"
 msgstr ""
 
@@ -93,27 +170,131 @@ msgstr ""
 msgid "Esqueceu sua senha?"
 msgstr ""
 
-#: pages/register.html:9
-msgid "Hora de se registrar!"
+#: pages/recoverPassword.html:15
+msgid "Oh Droga..."
 msgstr ""
 
-#: pages/register.html:19
-msgid "Nome"
+#: pages/recoverPassword.html:25
+msgid "Alteração de Senha"
+msgstr ""
+
+#: pages/recoverPassword.html:28
+msgid "Nova Senha"
+msgstr ""
+
+#: pages/recoverPassword.html:29
+msgid "Digite sua nova senha"
+msgstr ""
+
+#: pages/recoverPassword.html:32
+msgid "Alterar"
+msgstr ""
+
+#: pages/register.html:9
+msgid "Hora de se registrar!"
 msgstr ""
 
 #: pages/register.html:20
 msgid "Digite seu nome"
 msgstr ""
 
-#: pages/register.html:22
-msgid "Sobrenome"
-msgstr ""
-
 #: pages/register.html:23
 msgid "Digite seu sobrenome"
 msgstr ""
 
-#: pages/register.html:28
-msgid "Voltar"
+#: pages/users.html:11
+msgid "Sucesso,"
+msgstr ""
+
+#: pages/users.html:16
+msgid "Opa..."
+msgstr ""
+
+#: pages/users.html:21
+msgid "Cuidado..."
+msgstr ""
+
+#: pages/users.html:32
+msgid "Situação:"
+msgstr ""
+
+#: pages/users.html:33
+msgid "Data de Criação"
+msgstr ""
+
+#: pages/users.html:34
+msgid "Data de Modificação"
+msgstr ""
+
+#: pages/users.html:35
+msgid "Editar"
+msgstr ""
+
+#: pages/users.html:36
+msgid "Bloquear"
+msgstr ""
+
+#: routes/index.py:30 routes/oAuth.py:65
+msgid "Usuário não cadastrado, cadastre-se primeiro!"
+msgstr ""
+
+#: routes/index.py:40 routes/users.py:48
+msgid "Faça login para acessar essa página!"
+msgstr ""
+
+#: routes/oAuth.py:106
+msgid "Usuário não cadastrado ou bloqueado, contate o suporte!"
+msgstr ""
+
+#: routes/oAuth.py:112
+msgid "Senha Incorreta!"
+msgstr ""
+
+#: routes/oAuth.py:116
+msgid "Logado com Sucesso!"
+msgstr ""
+
+#: routes/oAuth.py:128
+msgid "Deslogado com Sucesso!"
+msgstr ""
+
+#: routes/oAuth.py:145
+msgid "E-mail não cadastrado."
+msgstr ""
+
+#: routes/oAuth.py:153
+msgid "Um link de recuperação de senha foi enviado para o seu e-mail."
+msgstr ""
+
+#: routes/oAuth.py:164
+msgid "O link de recuperação de senha expirou."
+msgstr ""
+
+#: routes/oAuth.py:168
+msgid "Link inválido."
+msgstr ""
+
+#: routes/oAuth.py:185
+msgid "Senha alterada com sucesso."
+msgstr ""
+
+#: routes/users.py:94
+msgid "Usuário cadastrado!"
+msgstr ""
+
+#: routes/users.py:116
+msgid "Usuário não Existe!"
+msgstr ""
+
+#: routes/users.py:121
+msgid "Usuário já está bloqueado!"
+msgstr ""
+
+#: routes/users.py:126
+msgid "Usuário bloqueado!"
+msgstr ""
+
+#: routes/users.py:173
+msgid "Usuário editado!"
 msgstr ""
 

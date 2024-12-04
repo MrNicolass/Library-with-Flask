@@ -1,4 +1,4 @@
-from flask import Flask, g, redirect, request, session, url_for
+from flask import Flask, g, redirect, render_template, request, session, url_for
 from routes.oAuth import blueprint as google_blueprint
 from itsdangerous import URLSafeTimedSerializer
 from flask_session import Session
@@ -8,7 +8,7 @@ import json
 import os
 
 #Local Imports
-from database.dbFunctions import init_app, init_db
+from database.dbFunctions import init_app, init_db, records
 from routes.oAuth import github_blueprint
 from routes import bp as routes_bp
 
@@ -67,6 +67,11 @@ app.register_blueprint(github_blueprint, url_prefix="/loginOAuthGithub")
 app.register_blueprint(routes_bp)
 
 #endregion
+
+@app.route('/test')
+def test():
+    teste = records('users')
+    return render_template('teste.html', records=teste[0], page=teste[1], total_pages=teste[2])
 
 @app.route('/initdb')
 def initialize_db():

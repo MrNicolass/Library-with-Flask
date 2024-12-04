@@ -1,6 +1,7 @@
 from flask import make_response, redirect, render_template, request, jsonify, flash, url_for, session
 from flask_dance.contrib.google import google
 from flask_dance.contrib.github import github
+from flask_babel import gettext as _
 from bcrypt import *
 import re
 from . import bp
@@ -44,7 +45,7 @@ def users():
             return edit_user()
     
     else:
-        flash("Faça login para acessar essa página!", "error")
+        flash(_("Faça login para acessar essa página!"), "error")
         return redirect(url_for('routes.login'))
     
 def get_users():
@@ -90,8 +91,8 @@ def create_user():
         
         cursor.execute(f"INSERT INTO users (login, password, firstName, lastName) VALUES ('{login}', '{passHash}', '{firstName}', '{lastName}')")
         db.commit()
-        flash(f"Usuário cadastrado!", "success")
-        return redirect(url_for('routes.users'))
+        flash(_("Usuário cadastrado!"), "success")
+        return redirect(url_for('routes.login'))
 
     except Exception as e:
         return jsonify({"Error": str(e)}), 500
@@ -112,21 +113,21 @@ def block_user():
         #Validates if user exists
         userExists = cursor.execute(f"SELECT id FROM users WHERE id = '{id}'").fetchone()
         if not userExists:
-            flash(f"Usuário não Existe!", "error")
+            flash(_("Usuário não Existe!"), "error")
             return redirect(url_for('routes.users'))
         
         #Verifies if user is already blocked
         if cursor.execute(f"SELECT status FROM users WHERE id = '{id}'").fetchone()[0] == 2:
-            flash(f"Usuário já está bloqueado!", "warning")
+            flash(_("Usuário já está bloqueado!"), "warning")
             return redirect(url_for('routes.users'))
 
         cursor.execute(f"UPDATE users SET status = 2, modified = DATETIME(CURRENT_TIMESTAMP, '-3 hours') WHERE id = '{id}'")
         db.commit()
-        flash(f"Usuário bloqueado!", "success")
+        flash(_("Usuário bloqueado!"), "success")
         return redirect(url_for('routes.users'))
 
     except Exception as e:
-        flash(f"Erro: {str(e)}", "error")
+        flash(_(f"Erro: {str(e)}"), "error")
         return redirect(url_for('routes.users'))
     
     finally:
@@ -169,7 +170,7 @@ def edit_user():
         
         cursor.execute(f"UPDATE users SET firstName = '{firstName}', lastName = '{lastName}', status = '{status}', modified = DATETIME(CURRENT_TIMESTAMP, '-3 hours') WHERE id = '{id}'")
         db.commit()
-        flash(f"Usuário editado!", "success")
+        flash(_("Usuário editado!"), "success")
         return redirect(url_for('routes.users'))
 
     except Exception as e:

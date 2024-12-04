@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Records</title>
+  </head>
+  <body>
+    <h1>Records</h1>
+
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+      </tr>
+      {% for record in records %}
+      <tr>
+        <td>{{ record.id }}</td>
+        <td>{{ record.nome }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <div>
+      <!-- Botão para a página anterior -->
+      {% if page > 1 %}
+        <a href="{{ url_for('records', page=page-1) }}">Previous</a>
+      {% endif %}
+
+      <!-- Exibe o número da página atual -->
+      <span>Page {{ page }} of {{ total_pages }}</span>
+
+      <!-- Botão para a próxima página -->
+      {% if page < total_pages %}
+        <a href="{{ url_for('records', page=page+1) }}">Next</a>
+      {% endif %}
+    </div>
+  </body>
+</html>
