@@ -1,7 +1,7 @@
 <h1>N1 - Web Library with Flask</h1>
 <div>
-<img alt="Static Badge" src="https://img.shields.io/badge/Status-In_Progress-yellow">
-<img alt="Static Badge" src="https://img.shields.io/badge/Step-N1-Green"><img alt="Static Badge" src="https://img.shields.io/badge/N2-Green"><img alt="Static Badge" src="https://img.shields.io/badge/N3-black">
+<img alt="Static Badge" src="https://img.shields.io/badge/Status-Done-Green">
+<img alt="Static Badge" src="https://img.shields.io/badge/Step-N1-Green"><img alt="Static Badge" src="https://img.shields.io/badge/N2-Green"><img alt="Static Badge" src="https://img.shields.io/badge/N3-Green">
 </div>
 <h2>Summary</h2>
 <p>It's a simple website developed with pure Python (API), HTML and CSS (design) in order to learn how API's works; Was proposed as test (N1 = first grade), consisting in one of three notes we've the semester of software engineering degree of Católica University in Jaraguá do Sul, Brazil.</p>
@@ -9,7 +9,9 @@
 <h2>What's the scope and its limitations?</h2>
 <p>For grade N1, we will create user management and a login screen (without using JWT tokens).</p>
 
-<p>You will need to implement:</p>
+<p>You will need to implement:<br>
+<strong>(There's a file named <code>requirements.py</code> that contains all extensions installed!)</strong>
+</p>
 
 <ol>
   <li>Database Table(initdb should create the user table):
@@ -71,6 +73,7 @@
             <li><code>pip install flask-email</code></li>
             <li><code>pip install python-dotenv</code></li>
             <li><code>pip install flask-session</code></li>
+            <li><code>pip install flask-babel</code></li>
         </ol>
     </li>
     <li>Now, just open <code>main.py</code> and run it with, to run the server you can use two methods:
