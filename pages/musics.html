@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} {{ _('Músicas') }} {% endblock %}</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            {% if messages and category == 'success' %}
+                <div class="alert alert-dismissible alert-success">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <strong>{{ _('Sucesso,') }}</strong> {{ message }}
+                </div>
+            {% elif messages and category == 'error' %}
+                <div class="alert alert-dismissible alert-danger">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <strong>{{ _('Opa...') }}</strong> {{ message }}
+                </div>
+            {% elif messages and category == 'warning' %}
+                <div class="alert alert-dismissible alert-warning">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <strong>{{ _('Cuidado...') }}</strong> {{ message }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endwith %}
+
+    <form action="/musics" method="post">
+        <div class="mb-3">
+            <label for="title" class="form-label">{{ _('Título') }}</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+        <div class="mb-3">
+            <label for="artist" class="form-label">{{ _('Artista') }}</label>
+            <input type="text" class="form-control" id="artist" name="artist" required>
+        </div>
+        <div class="mb-3">
+            <label for="genre" class="form-label">{{ _('Gênero') }}</label>
+            <input type="text" class="form-control" id="genre" name="genre" required>
+        </div>
+        <button type="submit" class="btn btn-primary">{{ _('Cadastrar Música') }}</button>
+    </form>
+
+    <table class="table table-hover mt-4">
+        <thead>
+            <tr class="table-dark">
+                <th scope="col">{{ _('Título') }}</th>
+                <th scope="col">{{ _('Artista') }}</th>
+                <th scope="col">{{ _('Gênero') }}</th>
+                <th scope="col">{{ _('Data de Criação') }}</th>
+                <th scope="col">{{ _('Data de Modificação') }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for music in musics %}
+            <tr class="{% if loop.index is even %}table-primary{% else %}table-light{% endif %}">
+                <td>{{ music.title }}</td>
+                <td>{{ music.artist }}</td>
+                <td>{{ music.genre }}</td>
+                <td>{{ music.created }}</td>
+                <td>{{ music.modified }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="d-flex btn-group-horizontal justify-content-center align-items-center">
+        <!-- Botão para a página anterior -->
+        {% if page > 1 %}
+        <button type="button" class="btn btn-primary m-sm-2"><a class="no-style-link" href="{{ url_for('routes.musics', page=page-1) }}">Anterior</a></button>
+        {% endif %}
+
+        <!-- Exibe o número da página atual -->
+        <span> Página {{ page }} de {{ total_pages }} </span>
+
+        <!-- Botão para a próxima página -->
+        {% if page < total_pages %}
+        <button type="button" class="btn btn-primary m-sm-2"><a class="no-style-link" href="{{ url_for('routes.musics', page=page+1) }}">Próximo</a></button>
+        {% endif %}
+    </div>
+{% endblock %}

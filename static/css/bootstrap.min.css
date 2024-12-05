@@ -13696,4 +13696,9 @@ fieldset:disabled .btn {
     color: #5c507c
 }
 
+.no-style-link {
+    text-decoration: none;
+    color: inherit;
+}
+
 /*# sourceMappingURL=bootstrap.min.css.map */

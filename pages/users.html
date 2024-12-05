@@ -64,4 +64,18 @@
             {% endfor %}
         </tbody>
       </table>
+      <div class="d-flex btn-group-horizontal justify-content-center align-items-center">
+        <!-- Botão para a página anterior -->
+        {% if page > 1 %}
+        <button type="button" class="btn btn-primary m-sm-2"><a class="no-style-link" href="{{ url_for('routes.users', page=page-1) }}">Anterior</a></button>
+        {% endif %}
+  
+        <!-- Exibe o número da página atual -->
+        <span> Página {{ page }} de {{ total_pages }} </span>
+  
+        <!-- Botão para a próxima página -->
+        {% if page < total_pages %}
+        <button type="button" class="btn btn-primary m-sm-2"><a class="no-style-link" href="{{ url_for('routes.users', page=page+1) }}">Próximo</a></button>
+        {% endif %}
+      </div>
 {% endblock %}

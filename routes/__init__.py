@@ -7,3 +7,4 @@ bp = Blueprint('routes', __name__)
 from .users import *
 from .index import *
 from .oAuth import *
+from .musics import *

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-12-03 19:58-0300\n"
+"POT-Creation-Date: 2024-12-04 22:09-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,23 +29,27 @@ msgstr ""
 msgid "Usuários"
 msgstr ""
 
-#: pages/base.html:47
+#: pages/base.html:38 pages/musics.html:4
+msgid "Músicas"
+msgstr ""
+
+#: pages/base.html:50
 msgid "Perfil"
 msgstr ""
 
-#: pages/base.html:48
+#: pages/base.html:51
 msgid "Sair"
 msgstr ""
 
-#: pages/base.html:70
+#: pages/base.html:73
 msgid "Inglês"
 msgstr ""
 
-#: pages/base.html:76
+#: pages/base.html:79
 msgid "Português"
 msgstr ""
 
-#: pages/base.html:82
+#: pages/base.html:85
 msgid "Espanhol"
 msgstr ""
 
@@ -170,6 +174,42 @@ msgstr ""
 msgid "Esqueceu sua senha?"
 msgstr ""
 
+#: pages/musics.html:11 pages/users.html:11
+msgid "Sucesso,"
+msgstr ""
+
+#: pages/musics.html:16 pages/users.html:16
+msgid "Opa..."
+msgstr ""
+
+#: pages/musics.html:21 pages/users.html:21
+msgid "Cuidado..."
+msgstr ""
+
+#: pages/musics.html:29 pages/musics.html:46
+msgid "Título"
+msgstr ""
+
+#: pages/musics.html:33 pages/musics.html:47
+msgid "Artista"
+msgstr ""
+
+#: pages/musics.html:37 pages/musics.html:48
+msgid "Gênero"
+msgstr ""
+
+#: pages/musics.html:40
+msgid "Cadastrar Música"
+msgstr ""
+
+#: pages/musics.html:49 pages/users.html:33
+msgid "Data de Criação"
+msgstr ""
+
+#: pages/musics.html:50 pages/users.html:34
+msgid "Data de Modificação"
+msgstr ""
+
 #: pages/recoverPassword.html:15
 msgid "Oh Droga..."
 msgstr ""
@@ -202,28 +242,8 @@ msgstr ""
 msgid "Digite seu sobrenome"
 msgstr ""
 
-#: pages/users.html:11
-msgid "Sucesso,"
-msgstr ""
-
-#: pages/users.html:16
-msgid "Opa..."
-msgstr ""
-
-#: pages/users.html:21
-msgid "Cuidado..."
-msgstr ""
-
 #: pages/users.html:32
 msgid "Situação:"
-msgstr ""
-
-#: pages/users.html:33
-msgid "Data de Criação"
-msgstr ""
-
-#: pages/users.html:34
-msgid "Data de Modificação"
 msgstr ""
 
 #: pages/users.html:35
@@ -238,8 +258,21 @@ msgstr ""
 msgid "Usuário não cadastrado, cadastre-se primeiro!"
 msgstr ""
 
-#: routes/index.py:40 routes/users.py:48
+#: routes/index.py:40 routes/musics.py:18 routes/musics.py:44
+#: routes/users.py:48
 msgid "Faça login para acessar essa página!"
+msgstr ""
+
+#: routes/musics.py:34
+msgid "Música não encontrada!"
+msgstr ""
+
+#: routes/musics.py:64
+msgid "Preencha todos os campos"
+msgstr ""
+
+#: routes/musics.py:74
+msgid "Música cadastrada com sucesso!"
 msgstr ""
 
 #: routes/oAuth.py:106
@@ -278,23 +311,23 @@ msgstr ""
 msgid "Senha alterada com sucesso."
 msgstr ""
 
-#: routes/users.py:94
+#: routes/users.py:87
 msgid "Usuário cadastrado!"
 msgstr ""
 
-#: routes/users.py:116
+#: routes/users.py:109
 msgid "Usuário não Existe!"
 msgstr ""
 
-#: routes/users.py:121
+#: routes/users.py:114
 msgid "Usuário já está bloqueado!"
 msgstr ""
 
-#: routes/users.py:126
+#: routes/users.py:119
 msgid "Usuário bloqueado!"
 msgstr ""
 
-#: routes/users.py:173
+#: routes/users.py:166
 msgid "Usuário editado!"
 msgstr ""
 

@@ -5,7 +5,7 @@ from flask_babel import gettext as _
 from bcrypt import *
 import re
 from . import bp
-from database.dbFunctions import get_db
+from database.dbFunctions import get_db, records
 
 #region Geral/Validation Functions
 
@@ -50,20 +50,13 @@ def users():
     
 def get_users():
     try:
-        #Database connection handling
-        db = get_db()
-        cursor = db.cursor()
-
-        #Getting data
-        users = cursor.execute("SELECT * FROM users").fetchall()
-        return render_template('users.html', dados = users)
+        #Function to get all users from database and create pagination
+        users = records('users')
+        return render_template('users.html', dados = users[0], page=users[1], total_pages=users[2])
 
     except Exception as e:
         return jsonify({"Error": str(e)}), 500
-    
-    finally:
-        cursor.close()
-        db.close()
+
 
 def create_user():
     try:

@@ -68,11 +68,6 @@ app.register_blueprint(routes_bp)
 
 #endregion
 
-@app.route('/test')
-def test():
-    teste = records('users')
-    return render_template('teste.html', records=teste[0], page=teste[1], total_pages=teste[2])
-
 @app.route('/initdb')
 def initialize_db():
     init_db()

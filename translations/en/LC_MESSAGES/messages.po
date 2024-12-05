@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-12-03 19:58-0300\n"
+"POT-Creation-Date: 2024-12-04 22:09-0300\n"
 "PO-Revision-Date: 2024-11-19 19:46-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -30,23 +30,27 @@ msgstr "Home"
 msgid "Usuários"
 msgstr "Users"
 
-#: pages/base.html:47
+#: pages/base.html:38 pages/musics.html:4
+msgid "Músicas"
+msgstr "Musics"
+
+#: pages/base.html:50
 msgid "Perfil"
 msgstr "Profile"
 
-#: pages/base.html:48
+#: pages/base.html:51
 msgid "Sair"
 msgstr "Exit"
 
-#: pages/base.html:70
+#: pages/base.html:73
 msgid "Inglês"
 msgstr "English"
 
-#: pages/base.html:76
+#: pages/base.html:79
 msgid "Português"
 msgstr "Brazilian Portuguese"
 
-#: pages/base.html:82
+#: pages/base.html:85
 msgid "Espanhol"
 msgstr "Spanish"
 
@@ -129,7 +133,9 @@ msgstr "Hello!"
 
 #: pages/index.html:22
 msgid "Você logou com sucesso com sua conta Google, veja mais detalhes abaixo!"
-msgstr "You have logged in successfully from your Google Account. Check your below details."
+msgstr ""
+"You have logged in successfully from your Google Account. Check your "
+"below details."
 
 #: pages/index.html:24 pages/index.html:36
 msgid "Informações do usuário buscadas de "
@@ -137,7 +143,9 @@ msgstr "User info fetched from"
 
 #: pages/index.html:34
 msgid "Você logou comsucesso com sua conta GitHub, veja mais detalhes abaixo!"
-msgstr "You have logged in successfully from your GitHub Account. Check your below details."
+msgstr ""
+"You have logged in successfully from your GitHub Account. Check your "
+"below details."
 
 #: pages/login.html:24
 msgid "Seja Bem-Vindo!"
@@ -171,13 +179,49 @@ msgstr "Login with GitHub"
 msgid "Esqueceu sua senha?"
 msgstr "Forgot your password?"
 
+#: pages/musics.html:11 pages/users.html:11
+msgid "Sucesso,"
+msgstr "Success,"
+
+#: pages/musics.html:16 pages/users.html:16
+msgid "Opa..."
+msgstr "Oops..."
+
+#: pages/musics.html:21 pages/users.html:21
+msgid "Cuidado..."
+msgstr "Careful..."
+
+#: pages/musics.html:29 pages/musics.html:46
+msgid "Título"
+msgstr "Title"
+
+#: pages/musics.html:33 pages/musics.html:47
+msgid "Artista"
+msgstr "Artist"
+
+#: pages/musics.html:37 pages/musics.html:48
+msgid "Gênero"
+msgstr "Genre"
+
+#: pages/musics.html:40
+msgid "Cadastrar Música"
+msgstr "Register Music"
+
+#: pages/musics.html:49 pages/users.html:33
+msgid "Data de Criação"
+msgstr "Create Date"
+
+#: pages/musics.html:50 pages/users.html:34
+msgid "Data de Modificação"
+msgstr "Modification Date"
+
 #: pages/recoverPassword.html:15
 msgid "Oh Droga..."
 msgstr "Oh damn..."
 
 #: pages/recoverPassword.html:25
 msgid "Alteração de Senha"
-msgstr "Change Password "
+msgstr "Change Password"
 
 #: pages/recoverPassword.html:28
 msgid "Nova Senha"
@@ -203,29 +247,9 @@ msgstr "Type your name"
 msgid "Digite seu sobrenome"
 msgstr "Type your last name"
 
-#: pages/users.html:11
-msgid "Sucesso,"
-msgstr "Succsess,"
-
-#: pages/users.html:16
-msgid "Opa..."
-msgstr "Ops..."
-
-#: pages/users.html:21
-msgid "Cuidado..."
-msgstr "Be aware..."
-
 #: pages/users.html:32
 msgid "Situação:"
 msgstr "Situation:"
-
-#: pages/users.html:33
-msgid "Data de Criação"
-msgstr "Create Date"
-
-#: pages/users.html:34
-msgid "Data de Modificação"
-msgstr "Modified Date"
 
 #: pages/users.html:35
 msgid "Editar"
@@ -239,13 +263,26 @@ msgstr "Block"
 msgid "Usuário não cadastrado, cadastre-se primeiro!"
 msgstr "Unregistered user, register first!"
 
-#: routes/index.py:40 routes/users.py:48
+#: routes/index.py:40 routes/musics.py:18 routes/musics.py:44
+#: routes/users.py:48
 msgid "Faça login para acessar essa página!"
 msgstr "Do login first to access the page!"
 
+#: routes/musics.py:34
+msgid "Música não encontrada!"
+msgstr "Music not found!"
+
+#: routes/musics.py:64
+msgid "Preencha todos os campos"
+msgstr "Fill in all fields"
+
+#: routes/musics.py:74
+msgid "Música cadastrada com sucesso!"
+msgstr "Music registered successfully!"
+
 #: routes/oAuth.py:106
 msgid "Usuário não cadastrado ou bloqueado, contate o suporte!"
-msgstr "Unregistered or blocked user, contact suport!"
+msgstr "Unregistered or blocked user, contact support!"
 
 #: routes/oAuth.py:112
 msgid "Senha Incorreta!"
@@ -253,11 +290,11 @@ msgstr "Wrong Password!"
 
 #: routes/oAuth.py:116
 msgid "Logado com Sucesso!"
-msgstr "Login Successfully!"
+msgstr "Logged in Successfully!"
 
 #: routes/oAuth.py:128
 msgid "Deslogado com Sucesso!"
-msgstr "Logout Successfully!"
+msgstr "Logged out Successfully!"
 
 #: routes/oAuth.py:145
 msgid "E-mail não cadastrado."
@@ -279,23 +316,22 @@ msgstr "Invalid link."
 msgid "Senha alterada com sucesso."
 msgstr "Password changed successfully."
 
-#: routes/users.py:94
+#: routes/users.py:87
 msgid "Usuário cadastrado!"
 msgstr "Registered user!"
 
-#: routes/users.py:116
+#: routes/users.py:109
 msgid "Usuário não Existe!"
-msgstr "User does not exists!"
+msgstr "User does not exist!"
 
-#: routes/users.py:121
+#: routes/users.py:114
 msgid "Usuário já está bloqueado!"
 msgstr "User already blocked!"
 
-#: routes/users.py:126
+#: routes/users.py:119
 msgid "Usuário bloqueado!"
 msgstr "User blocked!"
 
-#: routes/users.py:173
+#: routes/users.py:166
 msgid "Usuário editado!"
 msgstr "User edited!"
-

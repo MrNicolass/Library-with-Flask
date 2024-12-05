@@ -13,6 +13,7 @@
         <th>Name</th>
       </tr>
       {% for record in records %}
+      {{ records[1] }}
       <tr>
         <td>{{ record.id }}</td>
         <td>{{ record.nome }}</td>
@@ -23,7 +24,7 @@
     <div>
       <!-- Botão para a página anterior -->
       {% if page > 1 %}
-        <a href="{{ url_for('records', page=page-1) }}">Previous</a>
+        <a href="{{ url_for('test', page=page-1) }}">Previous</a>
       {% endif %}
 
       <!-- Exibe o número da página atual -->
@@ -31,7 +32,7 @@
 
       <!-- Botão para a próxima página -->
       {% if page < total_pages %}
-        <a href="{{ url_for('records', page=page+1) }}">Next</a>
+        <a href="{{ url_for('test', page=page+1) }}">Next</a>
       {% endif %}
     </div>
   </body>
