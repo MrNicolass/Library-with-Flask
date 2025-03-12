@@ -113,14 +113,17 @@ def login_user():
             return redirect(url_for('routes.login'))
         else:
             session['session'] = login
+            response = redirect(url_for('routes.home'))
+            response.set_cookie('login', login)
             flash(_("Logado com Sucesso!"), "success")
-            return redirect(url_for('routes.home'))
-
+            return response
         
     except Exception as e:
         return jsonify({"Error": str(e)}), 500
+    
     finally:
-        ...
+        cursor.close()
+        db.close()
 
 @bp.route('/logout')
 def logout():

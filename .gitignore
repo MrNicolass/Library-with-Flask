@@ -1,6 +1,6 @@
 **/__pycache__/
 **/flask_session/
 
-*.txt
-*.json
+clienteGoogle.json
+SenhaAppGoogle.txt
 *.env

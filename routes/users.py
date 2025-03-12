@@ -20,6 +20,9 @@ def userExists(login, cursor):
 def isUserBlocked(login, cursor):
     return cursor.execute(f"SELECT status FROM users WHERE LOWER(login) = LOWER('{login}')").fetchone()
 
+def isAdmin(login, cursor):
+    return cursor.execute(f"SELECT userType FROM users WHERE LOWER(login) = LOWER('{login}')").fetchone()[0]
+
 #endregion
 
 #region Users Functions
@@ -50,6 +53,14 @@ def users():
     
 def get_users():
     try:
+        db = get_db()
+        cursor = db.cursor()
+
+        admin = isAdmin(session['session'], cursor)
+        if admin != 1:
+            flash(_("Você não tem permissão para acessar essa página!"), "error")
+            return redirect(request.referrer)
+        
         #Function to get all users from database and create pagination
         users = records('users')
         return render_template('users.html', dados = users[0], page=users[1], total_pages=users[2])
