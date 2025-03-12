@@ -66,14 +66,15 @@
     <li>Inside VScode with the project folder open, click <code>CTRL + SHIFT + `</code> or type in VScode search bar <code>>Terminal: create new terminal</code> and press <code>Enter</code>;</li>
     <li>With terminal open, install this libraries using the syntax below, just copy and paste in terminal:
         <ol ol style="list-style-type: upper-alpha;">
-            <li><code>pip install flask</code></li>
-            <li><code>pip install bcrypt</code></li>
-            <li><code>pip install pysqlite3</code></li>
-            <li><code>pip install flask_dance</code></li>
-            <li><code>pip install flask-email</code></li>
-            <li><code>pip install python-dotenv</code></li>
-            <li><code>pip install flask-session</code></li>
-            <li><code>pip install flask-babel</code></li>
+            <li>Instead of downloading all libraries by hand, you can change <code>requirements.py</code> extension from <code>.py</code> to <code>.txt</code> and use the command <code>pip install -r requirements.txt</code> to download all automatic;</li>
+            <li><code>pip install flask</code>;</li>
+            <li><code>pip install bcrypt</code>;</li>
+            <li><code>pip install pysqlite3</code>;</li>
+            <li><code>pip install flask_dance</code>;</li>
+            <li><code>pip install flask-email</code>;</li>
+            <li><code>pip install python-dotenv</code>;</li>
+            <li><code>pip install flask-session</code>;</li>
+            <li><code>pip install flask-babel</code>.</li>
         </ol>
     </li>
     <li>Now, just open <code>main.py</code> and run it with, to run the server you can use two methods:
@@ -83,5 +84,15 @@
         </ol>
     </li>
     <li>The server/application already have a database file with some data (<code>database.db</code>), but if you want to start from zero, exclude <code>database.db</code> file and then access the route <code>/initdb</code> to create a new one with all tables and no data inside;</li>
+    <li>Create a <code>.env</code> file with the parameters below:
+      <pre><code>
+        GOOGLE_CLIENT_ID="your_Google_API_id"
+        GOOGLE_CLIENT_SECRET="your_Google_client_secret"
+        GITHUB_CLIENT_ID="your_GitHub_API_id"
+        GITHUB_CLIENT_SECRET="your_GitHub_API_password"
+        MAIL_USERNAME="your_e-mail"
+        MAIL_PASSWORD="your_Google_API_password"
+      </code></pre>
+    </li>
     <li>Enjoy exploring!</li>
 </ol>
