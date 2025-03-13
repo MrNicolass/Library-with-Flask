@@ -28,15 +28,17 @@ def isAdmin(login, cursor):
 #region Users Functions
 @bp.route('/users', methods=['GET', 'POST', 'DELETE'])
 def users():
-    if 'session' in session or google.authorized or github.authorized:
-        userId = request.form['id'] if 'id' in request.form else None
-        method = request.form['_method'] if '_method' in request.form else None
+    
+    userId = request.form['id'] if 'id' in request.form else None
+    method = request.form['_method'] if '_method' in request.form else None
+
+    if request.method == 'POST' and (userId == None or userId == ""):
+        return create_user()
+
+    elif 'session' in session or google.authorized or github.authorized:
 
         if request.method == 'GET':
             return get_users()
-        
-        elif request.method == 'POST' and (userId == None or userId == "") and method == None:
-            return create_user()
         
         elif request.method == 'POST' and userId != None and method == "DELETE":
             return block_user()

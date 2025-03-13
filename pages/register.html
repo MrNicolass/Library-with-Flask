@@ -23,6 +23,7 @@
                         <input name="lastName" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="lastNameHelp" placeholder="{{ _('Digite seu sobrenome') }}" required>
                     </div>
                     <div class="d-grid gap-2 form-label mt-4">
+                        <input type="hidden" name="_method" value="none">
                         <button class="btn btn-primary" type="submit">{{ _('Registrar') }}</button>
                         <button onclick="window.location.href='/login';" class="btn btn-outline-secondary"
                             type="button">{{ _('Voltar') }}</button>

@@ -6,5 +6,6 @@
             "name": "N1",
             "database": "${workspaceFolder:N1 - Library with Flask}/database/database.db"
         }
-    ]
+    ],
+    "sqltools.useNodeRuntime": true
 }
