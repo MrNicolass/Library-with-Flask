@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>{% block title %} {{ _('Adicionar Nova Música') }} {% endblock %}</h1>
+    <p class="lead">{{ _('Preencha os dados abaixo para cadastrar uma nova música na biblioteca.') }}</p>
+
+    {# Bloco para exibir mensagens de erro de validação #}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                {% if category == 'error' %}
+                    <div class="alert alert-dismissible alert-danger">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        {{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="card mt-3">
+        <div class="card-body">
+            <form action="{{ url_for('routes.add_music') }}" method="post">
+                <div class="mb-3">
+                    <label for="title" class="form-label">{{ _('Título') }}</label>
+                    <input type="text" class="form-control" id="title" name="title" required>
+                </div>
+                <div class="mb-3">
+                    <label for="artist" class="form-label">{{ _('Artista') }}</label>
+                    <input type="text" class="form-control" id="artist" name="artist" required>
+                </div>
+                <div class="mb-3">
+                    <label for="genre" class="form-label">{{ _('Gênero') }}</label>
+                    <input type="text" class="form-control" id="genre" name="genre" required>
+                </div>
+                <button type="submit" class="btn btn-primary">{{ _('Cadastrar Música') }}</button>
+                <a href="{{ url_for('routes.musics') }}" class="btn btn-secondary">{{ _('Voltar para a Lista') }}</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

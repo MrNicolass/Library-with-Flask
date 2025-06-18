@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    
+    {# Bloco para exibir mensagens de sucesso ou erro #}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-dismissible alert-{{ 'success' if category == 'success' else 'danger' }}">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <h1>{% block title %} {{ _('Meu Perfil') }} {% endblock %}</h1>
+    <p class="lead">{{ _('Aqui estão as informações da sua conta.') }}</p>
+
+    <div class="card mt-4">
+        <div class="card-header">
+            <h4>{{ user_data.firstName }} {{ user_data.lastName }}</h4>
+        </div>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <strong>{{ _('Email (Login):') }}</strong> {{ user_data.login }}
+                </li>
+                <li class="list-group-item">
+                    <strong>{{ _('Data de Cadastro:') }}</strong> {{ user_data.created }}
+                </li>
+                <li class="list-group-item">
+                    <strong>{{ _('Última Modificação:') }}</strong> {{ user_data.modified if user_data.modified else _('Nenhuma modificação registrada') }}
+                </li>
+                <li class="list-group-item">
+                    <strong>{{ _('Situação:') }}</strong>
+                    {% if user_data.status == 1 %}
+                        <span class="badge bg-success">{{ _('Ativo') }}</span>
+                    {% elif user_data.status == 2 %}
+                        <span class="badge bg-danger">{{ _('Bloqueado') }}</span>
+                    {% else %}
+                        <span class="badge bg-warning">{{ _('Inativo') }}</span>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card mt-4">
+        <div class="card-header">
+            <h4>{{ _('Alterar Senha') }}</h4>
+        </div>
+        <div class="card-body">
+            <form action="{{ url_for('routes.change_password') }}" method="post">
+                <div class="mb-3">
+                    <label for="current_password" class="form-label">{{ _('Senha Atual') }}</label>
+                    <input type="password" class="form-control" id="current_password" name="current_password" required>
+                </div>
+                <div class="mb-3">
+                    <label for="new_password" class="form-label">{{ _('Nova Senha') }}</label>
+                    <input type="password" class="form-control" id="new_password" name="new_password" required>
+                </div>
+                <div class="mb-3">
+                    <label for="confirm_password" class="form-label">{{ _('Confirmar Nova Senha') }}</label>
+                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">{{ _('Salvar Nova Senha') }}</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

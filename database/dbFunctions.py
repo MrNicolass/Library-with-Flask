@@ -29,7 +29,7 @@ def records(table: str):
     try:
         #Parameters for pagination
         page = request.args.get('page', 1, type=int)
-        per_page = 2  # Número de registros por página
+        per_page = 10  # Número de registros por página
         offset = (page - 1) * per_page
 
         #Connect to the database and fetch the records based on the page and limit

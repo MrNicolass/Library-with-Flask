@@ -2,6 +2,24 @@
 
 {% block content %}
 
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                {% if category == 'error' %}
+                    <div class="alert alert-dismissible alert-danger">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <strong>{{ _('Opa...') }}</strong> {{ message }}
+                    </div>
+                {% elif category == 'success' %}
+                    <div class="alert alert-dismissible alert-success">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <strong>{{ _('Sucesso,') }}</strong> {{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
 <form action="/users" method="post">
     <fieldset>
         <div class="d-flex align-items-center justify-content-center">
@@ -9,16 +27,12 @@
                 <div class="card-header">{{ _('Hora de se registrar!') }}</div>
                 <div class="card-body">
                     <div>
-                        <!-- E-mail -->
                         <h4 class="form-label mt-4">Login</h4>
                         <input name="login" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="{{ _('Digite seu e-mail') }}" required>
-                        <!-- Senha -->
                         <h4 class="form-label mt-4">{{ _('Senha') }}</h4>
                         <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="{{ _('Digite sua senha') }}" autocomplete="off" required>
-                        <!-- Nome -->
                         <h4 class="form-label mt-4">{{ _('Nome') }}</h4>
                         <input name="firstName" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="firstNameHelp" placeholder="{{ _('Digite seu nome') }}" required>
-                        <!-- Sobrenome -->
                         <h4 class="form-label mt-4">{{ _('Sobrenome') }}</h4>
                         <input name="lastName" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="lastNameHelp" placeholder="{{ _('Digite seu sobrenome') }}" required>
                     </div>

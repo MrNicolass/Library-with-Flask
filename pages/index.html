@@ -1,45 +1,50 @@
 {% extends 'base.html' %}
- 
+
 {% block content %}
-    <h1>{% block title %} {{ _('Início') }} {% endblock %}</h1>
-    
+    {# Bloco para exibir mensagens de boas-vindas ou erros #}
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}
-            <div class="alert alert-dismissible alert-success">
+            <div class="alert alert-dismissible alert-{{ 'success' if category == 'success' else 'danger' }}">
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                <strong>{{ _('Olá,') }}</strong> {{ message }}
+                <strong>{{ _('Olá!') }}</strong> {{ message }}
             </div>
             {% endfor %}
         {% endif %}
     {% endwith %}
 
-    {% if session is not none%}
-        <p>{{ _('Seu login de sessão é:') }} <strong>{{ session }}</strong></p> 
-    {% endif %}
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="display-5">{% block title %} {{ _('Dashboard') }} {% endblock %}</h1>
+                <p class="lead">{{ _('Bem-vindo(a) de volta,') }} <strong>{{ user_name }}</strong>!</p>
+            </div>
+        </div>
 
-    {% if google_data is not none and google_data.error is not none %}
-        <p>{{ _('Olá!') }} {{ google_data.name }}, [<strong>{{ google_data.email }}</strong>]. {{ _('Você logou com sucesso com sua conta Google, veja mais detalhes abaixo!') }}</p> 
-        <div class="detail">
-            <p style="font-size: 15px; padding-bottom: 10px;">{{ _('Informações do usuário buscadas de ') }} <strong>{{ fetch_url }}</strong></p> 
-            {% for key, value in google_data.items() %} <p><strong>{{ key }}</strong>: {{ value }}</p> 
-                {% if(key == 'picture') %} 
-                    <img src="{{ value }}" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 50%;"> 
-                {% endif %} 
-            {% endfor %}
-        </div> 
-    {% endif %}
+        <hr>
 
-    {% if github_data is not none and (github_data.message != 'Requires authentication') %}
-        <p>{{ _('Olá!') }} {{ github_data.name }}, [<strong>{{ github_data.email }}</strong>]. {{ _('Você logou comsucesso com sua conta GitHub, veja mais detalhes abaixo!') }}</p> 
-        <div class="detail">
-            <p style="font-size: 15px; padding-bottom: 10px;">{{ _('Informações do usuário buscadas de ') }} <strong>{{ fetch_url }}</strong></p> 
-            {% for key, value in github_data.items() %} <p><strong>{{ key }}</strong>: {{ value }}</p> 
-                {% if(key == 'picture') %} 
-                    <img src="{{ value }}" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 50%;"> 
-                {% endif %} 
-            {% endfor %}
-        </div> 
-    {% endif %} 
+        <div class="row text-center mt-4">
+            <div class="col-md-6 mb-4">
+                <div class="card border-primary h-100">
+                    <div class="card-header">{{ _('Usuários') }}</div>
+                    <div class="card-body">
+                        <h4 class="card-title">{{ _('Total de Usuários Registrados') }}</h4>
+                        <p class="display-4">{{ user_count }}</p>
+                        <a href="{{ url_for('routes.users') }}" class="btn btn-primary">{{ _('Gerenciar Usuários') }}</a>
+                    </div>
+                </div>
+            </div>
 
+            <div class="col-md-6 mb-4">
+                <div class="card border-success h-100">
+                    <div class="card-header">{{ _('Músicas') }}</div>
+                    <div class="card-body">
+                        <h4 class="card-title">{{ _('Total de Músicas na Biblioteca') }}</h4>
+                        <p class="display-4">{{ music_count }}</p>
+                        <a href="{{ url_for('routes.musics') }}" class="btn btn-success">{{ _('Acessar Biblioteca') }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

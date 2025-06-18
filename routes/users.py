@@ -73,39 +73,57 @@ def get_users():
 
 def create_user():
     try:
-        #Database connection handling
+        # Conexão com o banco de dados
         db = get_db()
         cursor = db.cursor()
 
-        #Getting data
+        # Coleta de dados do formulário
         login = request.form['login']
         password = request.form['password'].encode('utf-8')
         firstName = request.form['firstName']
         lastName = request.form['lastName']
 
-        #Validations
-        if userExists(login, cursor):
-            return jsonify({"Error": "Usuário já existe!"}), 400
+        # Validações
+        # Verifica se todos os campos foram preenchidos
+        if not all([login, password, firstName, lastName]):
+            flash(_("Todos os campos são obrigatórios."), "error")
+            return redirect(url_for('routes.register'))
 
+        # Verifica se o login é um e-mail válido
         if not email_validation(login):
-            return jsonify({"Error": "Não é um e-mail Válido!"}), 400
+            flash(_("Por favor, insira um e-mail válido."), "error")
+            return redirect(url_for('routes.register'))
 
-        if not login or not password or not firstName or not lastName:
-            return jsonify({"Error": "Preencha todos os campos"}), 400
-        
+        # Verifica se o login já existe
+        if userExists(login, cursor):
+            flash(_("Este e-mail já está cadastrado. Tente fazer o login."), "error")
+            return redirect(url_for('routes.register'))
+
+        # Lógica de Criação e Login Automático
         passHash = hashpw(password, gensalt()).decode('utf-8')
         
-        cursor.execute(f"INSERT INTO users (login, password, firstName, lastName) VALUES ('{login}', '{passHash}', '{firstName}', '{lastName}')")
+        cursor.execute(
+            "INSERT INTO users (login, password, firstName, lastName) VALUES (?, ?, ?, ?)",
+            (login, passHash, firstName, lastName)
+        )
         db.commit()
-        flash(_("Usuário cadastrado!"), "success")
-        return redirect(url_for('routes.login'))
+        
+        # Login automático criando a sessão
+        session['session'] = login
+        
+        flash(_("Usuário cadastrado com sucesso! Bem-vindo(a)!"), "success")
+        return redirect(url_for('routes.home')) # Redireciona para a página inicial
 
     except Exception as e:
-        return jsonify({"Error": str(e)}), 500
+        # Log do erro seria ideal aqui para depuração
+        flash(_("Ocorreu um erro inesperado ao criar o usuário."), "error")
+        return redirect(url_for('routes.register'))
     
     finally:
-        cursor.close()
-        db.close()
+        if cursor:
+            cursor.close()
+        if db:
+            db.close()
 
 def block_user():
     try:
@@ -184,5 +202,106 @@ def edit_user():
     finally:
         cursor.close()
         db.close()
+
+@bp.route('/profile')
+def profile():
+    # 1. Proteção da rota: verifica se o usuário está logado
+    if not ('session' in session or google.authorized or github.authorized):
+        flash(_("Faça login para acessar essa página!"), "error")
+        return redirect(url_for('routes.login'))
+
+    login_email = None
+    try:
+        # 2. Identifica o e-mail do usuário com base no tipo de sessão
+        if 'session' in session:
+            login_email = session['session']
+        elif google.authorized:
+            google_data = google.get('/oauth2/v2/userinfo').json()
+            login_email = google_data.get('email')
+        elif github.authorized:
+            github_data = github.get('/user').json()
+            login_email = github_data.get('email')
+        
+        if not login_email:
+            flash(_("Não foi possível identificar seu usuário. Por favor, faça login novamente."), "error")
+            return redirect(url_for('routes.logout'))
+
+        # 3. Busca os dados completos do usuário no banco de dados
+        db = get_db()
+        cursor = db.cursor()
+        user_data = cursor.execute("SELECT * FROM users WHERE login = ?", (login_email,)).fetchone()
+
+        if not user_data:
+            # Caso o usuário logado via OAuth não exista no banco local
+            flash(_("Seu usuário não foi encontrado em nosso sistema."), "error")
+            return redirect(url_for('routes.logout'))
+
+        # 4. Renderiza a página de perfil com os dados do usuário
+        return render_template('profile.html', user_data=user_data)
+
+    except Exception as e:
+        flash(_("Ocorreu um erro ao carregar seu perfil. Detalhes: ") + str(e), "error")
+        return redirect(url_for('routes.home'))
+    finally:
+        if 'cursor' in locals() and cursor:
+            cursor.close()
+        if 'db' in locals() and db:
+            db.close()
+
+@bp.route('/profile/change-password', methods=['POST'])
+def change_password():
+    # 1. Proteção da rota e identificação do usuário
+    if not ('session' in session or google.authorized or github.authorized):
+        flash(_("Faça login para acessar essa página!"), "error")
+        return redirect(url_for('routes.login'))
+
+    # Identifica o e-mail do usuário a partir da sessão (apenas usuários internos podem trocar a senha aqui)
+    if 'session' not in session:
+        flash(_("Usuários logados com Google ou GitHub não podem alterar a senha por aqui."), "error")
+        return redirect(url_for('routes.profile'))
+    
+    login_email = session['session']
+
+    # 2. Coleta de dados do formulário
+    current_password = request.form.get('current_password')
+    new_password = request.form.get('new_password')
+    confirm_password = request.form.get('confirm_password')
+
+    # 3. Validações
+    if not all([current_password, new_password, confirm_password]):
+        flash(_("Todos os campos de senha são obrigatórios."), "error")
+        return redirect(url_for('routes.profile'))
+
+    if new_password != confirm_password:
+        flash(_("A nova senha e a confirmação não correspondem."), "error")
+        return redirect(url_for('routes.profile'))
+
+    db = get_db()
+    cursor = db.cursor()
+    try:
+        user_data = cursor.execute("SELECT password FROM users WHERE login = ?", (login_email,)).fetchone()
+
+        # Validação de segurança: verifica se a senha atual está correta
+        stored_hash = user_data['password'].encode('utf-8')
+        if not checkpw(current_password.encode('utf-8'), stored_hash):
+            flash(_("A senha atual está incorreta."), "error")
+            return redirect(url_for('routes.profile'))
+
+        # 4. Atualização da senha no banco de dados
+        new_hash = hashpw(new_password.encode('utf-8'), gensalt()).decode('utf-8')
+        
+        # Usando a data/hora local correta de acordo com a documentação do projeto
+        cursor.execute("UPDATE users SET password = ?, modified = DATETIME('now', '-3 hours') WHERE login = ?", (new_hash, login_email))
+        db.commit()
+
+        flash(_("Senha alterada com sucesso!"), "success")
+
+    except Exception as e:
+        flash(_("Ocorreu um erro ao alterar a senha: ") + str(e), "error")
+    finally:
+        cursor.close()
+        db.close()
+
+    return redirect(url_for('routes.profile'))
 
 #endregion

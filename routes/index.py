@@ -9,35 +9,51 @@ from . import bp
 
 @bp.route('/')
 def first():
-    return render_template ("login.html")
+    return render_template("login.html")
 
 @bp.route('/home')
 def home():
-    github_data = None
-    git_user_info_endpoint = '/user'
-
-    google_data = None
-    google_user_info_endpoint = '/oauth2/v2/userinfo'
-
-    sessao = session['session'] if 'session' in session else None
-
-    if google.authorized:
-        google_data = google.get(google_user_info_endpoint).json()
-        email =google_data['email']
-
-        if not userExists(email, get_db().cursor()):
-            session.clear()
-            flash(_("Usuário não cadastrado, cadastre-se primeiro!"), "error")
-            return redirect(url_for("routes.first"))
-        
-    elif github.authorized:
-        github_data = github.get(git_user_info_endpoint).json()
-
-    elif 'session' in session:
-        return render_template('index.html', google_data=google_data, fetch_url=google.base_url + google_user_info_endpoint, github_data=github_data, session=sessao, fetch_url_github=github.base_url + git_user_info_endpoint)
-    
-    else:
+    # Verifica se há uma sessão ativa (qualquer tipo de login)
+    if not ('session' in session or google.authorized or github.authorized):
         flash(_("Faça login para acessar essa página!"), "error")
         return redirect(url_for('routes.login'))
 
-    return render_template('index.html', google_data=google_data, fetch_url=google.base_url + google_user_info_endpoint, github_data=github_data, session=sessao, fetch_url_github=github.base_url + git_user_info_endpoint)
+    try:
+        db = get_db()
+        cursor = db.cursor()
+        
+        user_name = "Visitante"
+
+        # Define o nome do usuário com base no tipo de login
+        if google.authorized:
+            google_data = google.get('/oauth2/v2/userinfo').json()
+            user_name = google_data.get('name', 'Usuário Google')
+        elif github.authorized:
+            github_data = github.get('/user').json()
+            user_name = github_data.get('name', 'Usuário GitHub')
+        elif 'session' in session:
+            login_email = session['session']
+            user_record = cursor.execute("SELECT firstName FROM users WHERE login = ?", (login_email,)).fetchone()
+            if user_record:
+                user_name = user_record['firstName']
+
+        # Busca as estatísticas do dashboard
+        user_count = cursor.execute("SELECT COUNT(id) FROM users").fetchone()[0]
+        music_count = cursor.execute("SELECT COUNT(id) FROM musics").fetchone()[0]
+
+    except Exception as e:
+        # Em caso de erro, define valores padrão para evitar que a página quebre
+        user_name = "Erro"
+        user_count = 0
+        music_count = 0
+        flash(_("Ocorreu um erro ao carregar os dados do dashboard."), "error")
+    finally:
+        if 'cursor' in locals() and cursor:
+            cursor.close()
+        if 'db' in locals() and db:
+            db.close()
+
+    return render_template('index.html', 
+                           user_name=user_name, 
+                           user_count=user_count, 
+                           music_count=music_count)

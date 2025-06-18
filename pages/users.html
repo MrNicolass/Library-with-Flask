@@ -1,14 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{% block title %} {{ _('Usuários') }} {% endblock %}</h1>
+<div class="container mt-4">
+    {# NOVO CABEÇALHO PADRONIZADO #}
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>{% block title %} {{ _('Usuários') }} {% endblock %}</h1>
+        {# Botão para levar à página de registro de usuário #}
+        <a href="{{ url_for('routes.register') }}" class="btn btn-primary">{{ _('Adicionar Novo Usuário') }}</a>
+    </div>
 
+    {# Bloco para exibir mensagens de sucesso ou erro #}
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% for category, message in messages %}
             {% if messages and category == 'success' %}
                 <div class="alert alert-dismissible alert-success">
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    <strong>{{ _('Sucesso,') }}</strong> {{ message }}
+                    <strong>{{ _('Sucesso!') }}</strong> {{ message }}
                 </div>
             {% elif messages and category == 'error' %}
                 <div class="alert alert-dismissible alert-danger">
@@ -23,59 +30,66 @@
             {% endif %}
         {% endfor %}
     {% endwith %}
- 
+
     <table class="table table-hover">
         <thead>
+            {# CABEÇALHO DA TABELA CORRIGIDO #}
             <tr class="table-dark">
-                <th scope="row">{{ _('Nome') }}</th>
-                <td>{{ _('Senha') }}</td>
-                <td>{{ _('Situação:') }}</td>
-                <td>{{ _('Data de Criação') }}</td>
-                <td>{{ _('Data de Modificação') }}</td>
-                <td>{{ _('Editar') }}</td>
-                <td>{{ _('Bloquear') }}</td>
+                <th scope="col">{{ _('Nome') }}</th>
+                <th scope="col">{{ _('Senha') }}</th>
+                <th scope="col">{{ _('Situação') }}</th>
+                <th scope="col">{{ _('Data de Criação') }}</th>
+                <th scope="col">{{ _('Data de Modificação') }}</th>
+                <th scope="col">{{ _('Editar') }}</th>
+                <th scope="col">{{ _('Bloquear') }}</th>
             </tr>
+        </thead>
+        <tbody>
             {% for dado in dados %}
             <tr class="{% if loop.index is even %}table-primary{% else %}table-light{% endif %}">
-                <th scope="row">{{ dado.firstName }}</th>
-                <td>{{ dado.password }}</td>
-                {% if dado.status == 1 %}
-                    <td>{{ _('Ativo') }}</td>
-                {% elif dado.status == 2 %}
-                    <td>{{ _('Bloqueado') }}</td>
-                {% else %}
-                    <td>{{ _('Inativo') }}</td>
-                {% endif %}
+                <th scope="row">{{ dado.firstName }} {{ dado.lastName }}</th>
+                <td>{{ dado.password[:20] }}...</td> {# Truncando a senha para melhor visualização #}
+                <td>
+                    {% if dado.status == 1 %}
+                        <span class="badge bg-success">{{ _('Ativo') }}</span>
+                    {% elif dado.status == 2 %}
+                        <span class="badge bg-danger">{{ _('Bloqueado') }}</span>
+                    {% else %}
+                        <span class="badge bg-warning">{{ _('Inativo') }}</span>
+                    {% endif %}
+                </td>
                 <td>{{ dado.created }}</td>
                 <td>{{ dado.modified }}</td>
                 <td>
-                    <form action="/users" method="post">
+                    <form action="/users" method="post" style="margin: 0;">
                         <input type="hidden" name="_method" value="GET">
-                        <button name="id" value="{{ dado.id }}" type="submit"><span class="material-symbols-outlined">Edit</span></button>
+                        <button name="id" value="{{ dado.id }}" type="submit" class="btn btn-sm btn-outline-primary">
+                            <span class="material-symbols-outlined" style="vertical-align: middle;">edit</span>
+                        </button>
                     </form>
                 </td>
                 <td>
-                    <form action="/users" method="post">
+                    <form action="/users" method="post" style="margin: 0;">
                         <input type="hidden" name="_method" value="DELETE">
-                        <button name="id" value="{{ dado.id }}" type="submit"><span class="material-symbols-outlined">Block</span></button>
+                        <button name="id" value="{{ dado.id }}" type="submit" class="btn btn-sm btn-outline-danger">
+                            <span class="material-symbols-outlined" style="vertical-align: middle;">block</span>
+                        </button>
                     </form>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
-      </table>
+    </table>
       <div class="d-flex btn-group-horizontal justify-content-center align-items-center">
-        <!-- Botão para a página anterior -->
         {% if page > 1 %}
-        <button type="button" class="btn btn-primary m-sm-2"><a class="no-style-link" href="{{ url_for('routes.users', page=page-1) }}">Anterior</a></button>
+        <a class="btn btn-outline-primary m-sm-2" href="{{ url_for('routes.users', page=page-1) }}">{{ _('Anterior') }}</a>
         {% endif %}
-  
-        <!-- Exibe o número da página atual -->
-        <span> Página {{ page }} de {{ total_pages }} </span>
-  
-        <!-- Botão para a próxima página -->
+
+        <span> {{ _('Página') }} {{ page }} {{ _('de') }} {{ total_pages }} </span>
+
         {% if page < total_pages %}
-        <button type="button" class="btn btn-primary m-sm-2"><a class="no-style-link" href="{{ url_for('routes.users', page=page+1) }}">Próximo</a></button>
+        <a class="btn btn-outline-primary m-sm-2" href="{{ url_for('routes.users', page=page+1) }}">{{ _('Próximo') }}</a>
         {% endif %}
       </div>
+</div>
 {% endblock %}
