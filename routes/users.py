@@ -58,17 +58,42 @@ def get_users():
         db = get_db()
         cursor = db.cursor()
 
-        admin = isAdmin(session['session'], cursor)
-        if admin != 1:
+        login_email = None
+        # Identifica o e-mail do usuário com base no tipo de sessão
+        if 'session' in session:
+            login_email = session['session']
+        elif google.authorized:
+            google_data = google.get('/oauth2/v2/userinfo').json()
+            login_email = google_data.get('email')
+        elif github.authorized:
+            github_data = github.get('/user').json()
+            login_email = github_data.get('email')
+
+        # Se não for possível identificar o usuário, redireciona para o login
+        if not login_email:
+            flash(_("Não foi possível identificar sua sessão. Por favor, faça login novamente."), "error")
+            return redirect(url_for('routes.login'))
+
+        # Usa o e-mail unificado para verificar a permissão de administrador
+        if not isAdmin(login_email, cursor):
             flash(_("Você não tem permissão para acessar essa página!"), "error")
-            return redirect(request.referrer)
+            return redirect(url_for('routes.home'))
         
-        #Function to get all users from database and create pagination
-        users = records('users')
-        return render_template('users.html', dados = users[0], page=users[1], total_pages=users[2])
+        # O resto da função continua como estava, buscando os usuários com paginação
+        all_records, page, total_pages = records('users')
+        return render_template('users.html', dados=all_records, page=page, total_pages=total_pages)
 
     except Exception as e:
-        return jsonify({"Error": str(e)}), 500
+        # Em vez de retornar um JSON, é melhor redirecionar com uma mensagem de erro
+        flash(_("Ocorreu um erro inesperado ao carregar a página de usuários: ") + str(e), "error")
+        return redirect(url_for('routes.home'))
+    
+    finally:
+        # Garante que a conexão com o banco seja fechada
+        if 'cursor' in locals() and cursor:
+            cursor.close()
+        if 'db' in locals() and db:
+            db.close()
 
 
 def create_user():

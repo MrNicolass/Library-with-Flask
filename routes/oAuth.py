@@ -54,27 +54,72 @@ github_blueprint = make_github_blueprint(
 #Google OAuth
 @bp.route('/loginOAuthGoogle')
 def loginOAuth():
+    # Se o usuário não estiver autorizado, redireciona para a tela de login do Google
     if not google.authorized:
         return redirect(url_for("google.login"))
-    elif google.authorized:
-        google_user_info_endpoint = '/oauth2/v2/userinfo'
-        google_data = google.get(google_user_info_endpoint).json()['email']
-        email = google_data
 
+    try:
+        # Após a autorização, busca os dados do usuário no Google
+        google_data = google.get('/oauth2/v2/userinfo').json()
+        email = google_data.get('email')
+
+        if not email:
+            flash(_("Não foi possível obter seu e-mail do Google."), "error")
+            return redirect(url_for("routes.login"))
+
+        # Verifica se o usuário do Google existe no seu banco de dados local
         if not userExists(email, get_db().cursor()):
-            flash(_("Usuário não cadastrado, cadastre-se primeiro!"), "error")
+            flash(_("Usuário não cadastrado. Por favor, registre-se primeiro."), "error")
             session.clear()
-            return redirect(url_for("routes.first"))
-    else:
+            return redirect(url_for("routes.login"))
+        
+        # Padroniza a sessão e redireciona para o dashboard
+        session['session'] = email
+        flash(_("Login com Google realizado com sucesso!"), "success")
         return redirect(url_for("routes.home"))
+
+    except Exception as e:
+        flash(_("Ocorreu um erro durante o login com Google: ") + str(e), "error")
+        return redirect(url_for("routes.login"))
 
 #Github OAuth
 @bp.route('/loginOAuthGithub')
 def loginOAuthGithub():
+    # Se o usuário não estiver autorizado, redireciona para a tela de login do GitHub
     if not github.authorized:
         return redirect(url_for("github.login"))
-    else:
+
+    try:
+        # Após a autorização, busca os dados do usuário no GitHub
+        github_data = github.get('/user').json()
+        email = github_data.get('email')
+        
+        # Lógica para caso o e-mail principal do GitHub seja privado
+        if not email:
+            emails = github.get('/user/emails').json()
+            if emails:
+                primary_email_obj = next((e for e in emails if e.get('primary')), None)
+                if primary_email_obj:
+                    email = primary_email_obj['email']
+
+        if not email:
+            flash(_("Não foi possível obter seu e-mail do GitHub. Verifique suas configurações de privacidade."), "error")
+            return redirect(url_for("routes.login"))
+
+        # Verifica se o usuário do GitHub existe no seu banco de dados local
+        if not userExists(email, get_db().cursor()):
+            flash(_("Usuário não cadastrado. Por favor, registre-se primeiro."), "error")
+            session.clear()
+            return redirect(url_for("routes.login"))
+        
+        # Padroniza a sessão e redireciona para o dashboard
+        session['session'] = email
+        flash(_("Login com GitHub realizado com sucesso!"), "success")
         return redirect(url_for("routes.home"))
+
+    except Exception as e:
+        flash(_("Ocorreu um erro durante o login com GitHub: ") + str(e), "error")
+        return redirect(url_for("routes.login"))
     
 #endregion
 
