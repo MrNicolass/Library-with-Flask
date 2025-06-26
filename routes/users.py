@@ -88,12 +88,12 @@ def get_users():
         flash(_("Ocorreu um erro inesperado ao carregar a página de usuários: ") + str(e), "error")
         return redirect(url_for('routes.home'))
     
-    finally:
-        # Garante que a conexão com o banco seja fechada
-        if 'cursor' in locals() and cursor:
-            cursor.close()
-        if 'db' in locals() and db:
-            db.close()
+    # finally:
+    #     # Garante que a conexão com o banco seja fechada
+    #     if 'cursor' in locals() and cursor:
+    #         cursor.close()
+    #     if 'db' in locals() and db:
+    #         db.close()
 
 
 def create_user():
